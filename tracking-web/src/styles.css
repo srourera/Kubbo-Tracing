@@ -1,0 +1,12 @@
+:root {
+    --primary-color: #6E5EF8;
+    --secondary-color: #5CA6FA;
+    --background-color: #f2f4f5;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    background-color: var(--background-color);
+}
