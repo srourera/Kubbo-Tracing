@@ -13,6 +13,7 @@
 	<properties>
 		<java.version>11</java.version>
 		<commons-service.version>1.0.0-SNAPSHOT</commons-service.version>
+		<org.projectlombok.version>1.18.16</org.projectlombok.version>
 	</properties>
 
 	<dependencies>
@@ -32,6 +33,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${org.projectlombok.version}</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
