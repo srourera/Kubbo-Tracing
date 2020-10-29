@@ -1,0 +1,9 @@
+<div class="route p-4">
+    <div *ngIf="!products" class="alert kubbo-alert" role="alert">
+        Loading products...
+    </div>
+    <div *ngIf="!!products && products.length === 0" class="alert kubbo-alert" role="alert">
+        No products found.
+    </div>
+    <products-table *ngIf="!!products && products.length > 0" [products]="products"></products-table>
+</div>

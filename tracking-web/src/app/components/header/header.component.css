@@ -1,0 +1,44 @@
+#header-container {
+    height: var(--header-height);
+}
+
+#header {
+    background-color: var(--dark-color);
+    height: var(--header-height);
+    width: 100%;
+    position: fixed;
+    transition-duration: 0.4s;
+}
+
+img {
+    width: auto;
+    height: 30px;
+    transition-duration: 0.4s;
+}
+
+h2 {
+    color: white;
+    margin: 0;
+    transition-duration: 0.4s;
+}
+
+#header.small {
+    height: var(--header-height-small);
+    transition-duration: 0.4s;
+}
+
+#header.small img {
+    height: 22px;
+    transition-duration: 0.4s;
+}
+
+#header.small h2 {
+    font-size: 20px;
+    transition-duration: 0.4s;
+}
+
+@media screen and (max-width:480px){
+    #header h2 {
+        display: none;
+    }
+}

@@ -1,7 +1,24 @@
+@font-face {
+    font-family: KubboFont;
+    src: url(./assets/fonts/Gilroy-Light.otf)
+}
+@font-face {
+    font-family: KubboFontBold;
+    src: url(./assets/fonts/Gilroy-ExtraBold.otf)
+}
+
 :root {
+    --dark-color: #313d72;
     --primary-color: #6E5EF8;
     --secondary-color: #5CA6FA;
     --background-color: #f2f4f5;
+    --transparent-shadow-light: #5CA6FA10;
+    --transparent-shadow-medium: #5CA6FA20;
+
+    --header-height: 85px;
+    --header-height-small: 65px;
+
+    --max-width: 1200px;
 }
 
 html, body {
@@ -9,4 +26,14 @@ html, body {
     width: 100%;
     padding: 0;
     background-color: var(--background-color);
+    font-family: KubboFont, Georgia, 'Times New Roman', Times, serif;
+}
+
+strong {
+    font-family: KubboFontBold, Georgia, 'Times New Roman', Times, serif;
+}
+
+.route {
+    margin: 0 auto;
+    max-width: var(--max-width);
 }
