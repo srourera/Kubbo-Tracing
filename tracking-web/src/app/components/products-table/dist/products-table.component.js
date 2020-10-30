@@ -14,9 +14,22 @@ var ProductsTableComponent = /** @class */ (function () {
     function ProductsTableComponent() {
         this.productColumns = Properties_1.productColumns;
         this.products = [];
+        this.hidden = false;
+        this.productClicked = new core_1.EventEmitter();
     }
     ProductsTableComponent.prototype.ngOnChanges = function () {
         this.productsDataSource = new table_1.MatTableDataSource(this.products);
+    };
+    ProductsTableComponent.prototype.seeProduct = function (product) {
+        this.productClicked.emit(product);
+    };
+    ProductsTableComponent.prototype.editProduct = function (event, product) {
+        event.stopPropagation();
+        console.log("EDIT", product);
+    };
+    ProductsTableComponent.prototype.deleteProduct = function (event, product) {
+        event.stopPropagation();
+        console.log("DELETE", product);
     };
     ProductsTableComponent.prototype.sortData = function (event) {
         this.sort(event.active, event.direction === "asc");
@@ -35,6 +48,12 @@ var ProductsTableComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], ProductsTableComponent.prototype, "products");
+    __decorate([
+        core_1.Input()
+    ], ProductsTableComponent.prototype, "hidden");
+    __decorate([
+        core_1.Output()
+    ], ProductsTableComponent.prototype, "productClicked");
     ProductsTableComponent = __decorate([
         core_1.Component({
             selector: 'products-table',

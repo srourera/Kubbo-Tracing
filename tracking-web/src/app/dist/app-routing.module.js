@@ -6,22 +6,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.PricePipe = void 0;
+exports.AppRoutingModule = void 0;
 var core_1 = require("@angular/core");
-var PricePipe = /** @class */ (function () {
-    function PricePipe() {
+var router_1 = require("@angular/router");
+var home_route_1 = require("./routes/home/home.route");
+var routes = [
+    { path: "products/:productId", component: home_route_1.HomeRoute },
+    { path: "**", pathMatch: "full", redirectTo: "products/" }
+];
+var AppRoutingModule = /** @class */ (function () {
+    function AppRoutingModule() {
     }
-    PricePipe.prototype.transform = function (value) {
-        if (!isNaN(value))
-            return Number(value).toFixed(2) + " €";
-        else
-            return value + " €";
-    };
-    PricePipe = __decorate([
-        core_1.Pipe({
-            name: 'price'
+    AppRoutingModule = __decorate([
+        core_1.NgModule({
+            imports: [router_1.RouterModule.forRoot(routes)],
+            exports: [router_1.RouterModule]
         })
-    ], PricePipe);
-    return PricePipe;
+    ], AppRoutingModule);
+    return AppRoutingModule;
 }());
-exports.PricePipe = PricePipe;
+exports.AppRoutingModule = AppRoutingModule;

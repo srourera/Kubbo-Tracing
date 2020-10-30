@@ -1,0 +1,12 @@
+#product-details {
+    border-radius: .25rem;
+    background-color: white;
+    box-shadow: var(--box-shadow-dark);    
+    transition-duration: 1s;
+    overflow: hidden;
+}
+#product-details.hidden {
+    transform: translate(+100vw, 0px);
+    transition-duration: 1s;
+    max-height: 100vh;
+}

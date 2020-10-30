@@ -10,17 +10,21 @@ exports.HeaderComponent = void 0;
 var core_1 = require("@angular/core");
 var Properties_1 = require("../../configuration/Properties");
 var HeaderComponent = /** @class */ (function () {
-    function HeaderComponent() {
+    function HeaderComponent(router) {
+        this.router = router;
         this.title = Properties_1.appTitle;
     }
     HeaderComponent.prototype.ngOnInit = function () {
         this.onWindowScroll();
     };
+    HeaderComponent.prototype.goHome = function () {
+        this.router.navigate(['']);
+    };
     HeaderComponent.prototype.onWindowScroll = function () {
-        this.small = window.scrollY > 0;
+        this.small = document.body.scrollTop > 0;
     };
     __decorate([
-        core_1.HostListener("window:scroll", [])
+        core_1.HostListener("body:scroll", [])
     ], HeaderComponent.prototype, "onWindowScroll");
     HeaderComponent = __decorate([
         core_1.Component({

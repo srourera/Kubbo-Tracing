@@ -4,8 +4,8 @@ import { HomeRoute } from './routes/home/home.route';
 
 
 const routes: Routes = [
-  { path: "home", component: HomeRoute},
-  { path: "**", pathMatch: "full", redirectTo: "home" }
+  { path: "products/:productId", component: HomeRoute},
+  { path: "**", pathMatch: "full", redirectTo: "products/" }
 ];
 
 @NgModule({

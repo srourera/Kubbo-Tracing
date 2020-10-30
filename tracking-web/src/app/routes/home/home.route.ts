@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
-import { StocksService } from '../../services/stocks.service';
-import { WarehousesService } from '../../services/warehouses.service';
 import { Product } from '../../models/product.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'home',
@@ -13,44 +12,49 @@ export class HomeRoute implements OnInit {
 
   products: Product[];
   stocks: string[];
-  warehouses: string[];
+
+  showCurrentProduct: boolean = false;
+  currentProduct: Product = {} as Product;
 
   constructor(
-    private _productsService: ProductsService,
-    private _stocksService: StocksService,
-    private _warehousesService: WarehousesService
+    private productsService: ProductsService,
+    private router: Router,
+    private route: ActivatedRoute
   ){};
 
-  ngOnInit(): void {    
-    this._loadProducts();
-    this._loadStocks();
-    this._loadWarehouses();
+  ngOnInit(): void {
+    this.route.params.subscribe((p)=>{
+      const productId = !!p && !!p.productId && !isNaN(p.productId) ? Number(p.productId) : -1;
+
+      if(productId !== -1) this.loadProduct(productId);
+      else this.showCurrentProduct = false;
+    });
+
+    this.loadProducts();
   }
 
-  private _loadProducts(): void {
-    this._productsService.getProducts().subscribe(
+  private loadProduct(productId:number) {
+    this.productsService.getProductById(productId).subscribe(
+      (response: Product) => {        
+        if(!response) this.router.navigate(['']);
+        this.currentProduct = response;        
+        this.showCurrentProduct = true;
+      },()=>{        
+        this.showCurrentProduct = false;
+        this.router.navigate(['']);
+      }
+    );
+  }
+
+  private loadProducts(): void {
+    this.productsService.getProducts().subscribe(
       (response: Product[]) => {        
         this.products = [...response,...response,...response,...response,...response];
       }
     );
   }
 
-  private _loadStocks(): void {
-    this._stocksService.getStocks().subscribe(
-      response => {
-        // let key: string = Object.keys(response)[0];
-        // this.stocks = `${key}: ${response[key]}`;
-      }
-    );
+  productClicked(product: Product) {
+    this.router.navigate(['products',product.id]);
   }
-
-  private _loadWarehouses(): void {
-    this._warehousesService.getWarehouses().subscribe(
-      response => {
-        // let key: string = Object.keys(response)[0];
-        // this.warehouses = `${key}: ${response[key]}`;
-      }
-    );
-  }
-
 }

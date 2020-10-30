@@ -1,4 +1,9 @@
-.kubbo-alert {
-    color: white;
-    background-color: var(--dark-color);
+product-details{
+    position: absolute;    
+    width: calc(100% - var(--padding) - var(--padding));
+    max-width: calc(var(--max-width) - var(--padding));
+    z-index: 999;
+}
+product-details.hidden {
+    z-index: -1;
 }

@@ -16,34 +16,45 @@ exports.__esModule = true;
 exports.HomeRoute = void 0;
 var core_1 = require("@angular/core");
 var HomeRoute = /** @class */ (function () {
-    function HomeRoute(_productsService, _stocksService, _warehousesService) {
-        this._productsService = _productsService;
-        this._stocksService = _stocksService;
-        this._warehousesService = _warehousesService;
+    function HomeRoute(productsService, router, route) {
+        this.productsService = productsService;
+        this.router = router;
+        this.route = route;
+        this.showCurrentProduct = false;
+        this.currentProduct = {};
     }
     ;
     HomeRoute.prototype.ngOnInit = function () {
-        this._loadProducts();
-        this._loadStocks();
-        this._loadWarehouses();
-    };
-    HomeRoute.prototype._loadProducts = function () {
         var _this = this;
-        this._productsService.getProducts().subscribe(function (response) {
+        this.route.params.subscribe(function (p) {
+            var productId = !!p && !!p.productId && !isNaN(p.productId) ? Number(p.productId) : -1;
+            if (productId !== -1)
+                _this.loadProduct(productId);
+            else
+                _this.showCurrentProduct = false;
+        });
+        this.loadProducts();
+    };
+    HomeRoute.prototype.loadProduct = function (productId) {
+        var _this = this;
+        this.productsService.getProductById(productId).subscribe(function (response) {
+            if (!response)
+                _this.router.navigate(['']);
+            _this.currentProduct = response;
+            _this.showCurrentProduct = true;
+        }, function () {
+            _this.showCurrentProduct = false;
+            _this.router.navigate(['']);
+        });
+    };
+    HomeRoute.prototype.loadProducts = function () {
+        var _this = this;
+        this.productsService.getProducts().subscribe(function (response) {
             _this.products = __spreadArrays(response, response, response, response, response);
         });
     };
-    HomeRoute.prototype._loadStocks = function () {
-        this._stocksService.getStocks().subscribe(function (response) {
-            // let key: string = Object.keys(response)[0];
-            // this.stocks = `${key}: ${response[key]}`;
-        });
-    };
-    HomeRoute.prototype._loadWarehouses = function () {
-        this._warehousesService.getWarehouses().subscribe(function (response) {
-            // let key: string = Object.keys(response)[0];
-            // this.warehouses = `${key}: ${response[key]}`;
-        });
+    HomeRoute.prototype.productClicked = function (product) {
+        this.router.navigate(['products', product.id]);
     };
     HomeRoute = __decorate([
         core_1.Component({

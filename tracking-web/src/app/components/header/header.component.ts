@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { appTitle } from '../../configuration/Properties';
 
 @Component({
@@ -11,14 +12,18 @@ export class HeaderComponent implements OnInit {
   public title = appTitle;
   public small: boolean;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.onWindowScroll();
   }
 
-  @HostListener("window:scroll", [])
+  goHome() {
+    this.router.navigate([''])
+  }
+
+  @HostListener("body:scroll", [])
   onWindowScroll() {
-    this.small = window.scrollY > 0;
+    this.small = document.body.scrollTop > 0;
   }
 }

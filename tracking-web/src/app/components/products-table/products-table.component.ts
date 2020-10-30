@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { productColumns } from '../../configuration/Properties';
 import { MatTableDataSource } from '@angular/material/table';
@@ -13,13 +13,28 @@ export class ProductsTableComponent implements OnChanges {
   productColumns = productColumns;
 
   @Input() products: Product[] = [];
+  @Input() hidden: boolean = false;
+  @Output() productClicked: EventEmitter<Product> = new EventEmitter();
 
   productsDataSource: MatTableDataSource<Product>;
+
 
   constructor() { }
 
   ngOnChanges(): void {
     this.productsDataSource = new MatTableDataSource<Product>(this.products);
+  }
+
+  seeProduct(product: Product) {
+    this.productClicked.emit(product);
+  }
+  editProduct(event,product: Product) {
+    event.stopPropagation();
+    console.log("EDIT",product)
+  }
+  deleteProduct(event,product: Product) {
+    event.stopPropagation();
+    console.log("DELETE",product)
   }
 
   sortData(event) {

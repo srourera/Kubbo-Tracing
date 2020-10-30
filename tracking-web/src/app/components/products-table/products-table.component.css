@@ -1,7 +1,13 @@
 mat-table {
-    border: 1px solid var(--dark-color);
     border-radius: .25rem;
     overflow: hidden;
+    background-color: white;
+    box-shadow: var(--box-shadow-dark);
+    transition-duration: 1s;
+}
+mat-table.hidden {
+    transform: translate(-100vw, 0px);
+    transition-duration: 1s;
 }
 
 mat-header-row {
@@ -11,21 +17,24 @@ mat-header-row {
 
 mat-cell,
 mat-header-cell {
+    padding: 5px;
+    text-align: justify;
     justify-content: center;
 }
 mat-header-cell {
     text-transform: uppercase;
 }
 
+mat-row {
+    cursor: pointer;
+    padding: 15px 0;
+    border-color: #ddd;
+}
 mat-row:last-child {
     border-bottom: none;
 }
 mat-row:hover{
-    background-color: var(--transparent-shadow-medium);
-}
-
-mat-row {
-    padding: 15px 0;
+    background-color: var(--transparent-shadow-light);
 }
 
 .mat-column-image {
@@ -33,15 +42,76 @@ mat-row {
 }
 .mat-column-name,
 .mat-column-price {
-    flex: 0 0 30%;
+    flex: 0 0 22.5%;
 }
 .mat-column-sku,
 .mat-column-barcode {
     flex: 0 0 15%;
 }
+.mat-column-actions {
+    flex: 0 0 15%;
+}
+@media screen and (max-width:680px){
+    .mat-column-image {
+        flex: 0 0 15%;
+    }
+    .mat-column-name,
+    .mat-column-price {
+        flex: 0 0 27.5%;
+    }
+    .mat-column-barcode {        
+        display: none;
+    }
+}
+@media screen and (max-width:550px){
+    .mat-column-image {
+        flex: 0 0 15%;
+    }
+    .mat-column-name,
+    .mat-column-price {
+        flex: 0 0 32.5%;
+    }
+    .mat-column-sku {        
+        display: none;
+    }
+    .mat-column-actions {
+        flex: 0 0 20%;
+    }
+}
+@media screen and (max-width:420px){
+    .mat-column-image {
+        flex: 0 0 22.5%;
+    }
+    .mat-column-name {
+        flex: 0 0 50%;
+    }
+    .mat-column-price {
+        display:none
+    }
+    .mat-column-actions {
+        flex: 0 0 27.5%;
+    }
+}
 
-mat-cell.mat-column-name{
-    font-size: 22px;
+mat-cell.mat-column-name {
+    color: var(--dark-color);
+    font-weight: bold;
+    font-size: 20px;
+}
+mat-cell.mat-column-price span {
+    border-radius: 15px;
+    border: 1px solid var(--action-color);
+    padding: 5px 10px;
+}
+mat-cell.mat-column-actions mat-icon {
+    margin: 0 5px;
+    color: #666;
+}
+mat-cell.mat-column-actions mat-icon.edit:hover {
+    color: var(--dark-color);
+}
+mat-cell.mat-column-actions mat-icon.delete:hover {
+    color: var(--delete-color);
 }
 
 img {

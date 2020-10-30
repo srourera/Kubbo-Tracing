@@ -11,22 +11,35 @@
     --dark-color: #313d72;
     --primary-color: #6E5EF8;
     --secondary-color: #5CA6FA;
-    --background-color: #f2f4f5;
-    --transparent-shadow-light: #5CA6FA10;
-    --transparent-shadow-medium: #5CA6FA20;
+    --action-color: #ea61ae;
+    --delete-color: #b70d00;
+
+    --transparent-shadow-light: #00000010;
+    --transparent-shadow-medium: #00000020;
+    --transparent-shadow-dark: #00000080;
+    
+    --background: linear-gradient(140deg, rgb(115, 83, 244) 0%, rgb(255, 102, 173) 100%);
+    --box-shadow-dark: 2px 2px 15px var(--transparent-shadow-dark);
 
     --header-height: 85px;
     --header-height-small: 65px;
 
     --max-width: 1200px;
+    --padding: 1.5rem;
 }
 
-html, body {
-    height: 100%;
+html,body {
+    height: 100vh;
     width: 100%;
     padding: 0;
-    background-color: var(--background-color);
+    overflow: hidden;
+}
+body {
     font-family: KubboFont, Georgia, 'Times New Roman', Times, serif;
+    background: var(--background);
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: scroll;
 }
 
 strong {
@@ -36,4 +49,18 @@ strong {
 .route {
     margin: 0 auto;
     max-width: var(--max-width);
+    padding: var(--padding);
+}
+
+
+/* Fix styles*/
+.mat-sort-header-container {
+    position: relative;
+}
+.mat-sort-header-arrow{
+    position: absolute !important;
+    right:-20px;
+}
+:focus{
+    outline: none !important;
 }

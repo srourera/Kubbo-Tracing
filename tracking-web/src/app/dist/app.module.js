@@ -8,16 +8,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.AppModule = void 0;
 var platform_browser_1 = require("@angular/platform-browser");
+var animations_1 = require("@angular/platform-browser/animations");
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/common/http");
 var table_1 = require("@angular/material/table");
 var sort_1 = require("@angular/material/sort");
-var animations_1 = require("@angular/platform-browser/animations");
+var icon_1 = require("@angular/material/icon");
 var app_routing_module_1 = require("./app-routing.module");
 var app_component_1 = require("./app.component");
 var home_route_1 = require("./routes/home/home.route");
 var header_component_1 = require("./components/header/header.component");
 var products_table_component_1 = require("./components/products-table/products-table.component");
+var price_pipe_1 = require("./pipes/price.pipe");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -27,7 +29,8 @@ var AppModule = /** @class */ (function () {
                 app_component_1.AppComponent,
                 home_route_1.HomeRoute,
                 header_component_1.HeaderComponent,
-                products_table_component_1.ProductsTableComponent
+                products_table_component_1.ProductsTableComponent,
+                price_pipe_1.PricePipe
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -35,7 +38,8 @@ var AppModule = /** @class */ (function () {
                 app_routing_module_1.AppRoutingModule,
                 http_1.HttpClientModule,
                 table_1.MatTableModule,
-                sort_1.MatSortModule
+                sort_1.MatSortModule,
+                icon_1.MatIconModule
             ],
             providers: [],
             bootstrap: [app_component_1.AppComponent]

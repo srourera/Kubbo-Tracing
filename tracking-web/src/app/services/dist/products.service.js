@@ -6,22 +6,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.PricePipe = void 0;
+exports.ProductsService = void 0;
 var core_1 = require("@angular/core");
-var PricePipe = /** @class */ (function () {
-    function PricePipe() {
+var Properties_1 = require("../configuration/Properties");
+var ProductsService = /** @class */ (function () {
+    function ProductsService(http) {
+        this.http = http;
     }
-    PricePipe.prototype.transform = function (value) {
-        if (!isNaN(value))
-            return Number(value).toFixed(2) + " €";
-        else
-            return value + " €";
+    ProductsService.prototype.getProducts = function () {
+        return this.http.get(Properties_1.productsUrl);
     };
-    PricePipe = __decorate([
-        core_1.Pipe({
-            name: 'price'
+    ProductsService.prototype.getProductById = function (id) {
+        return this.http.get(Properties_1.productsUrl + "/" + id);
+    };
+    ProductsService = __decorate([
+        core_1.Injectable({
+            providedIn: 'root'
         })
-    ], PricePipe);
-    return PricePipe;
+    ], ProductsService);
+    return ProductsService;
 }());
-exports.PricePipe = PricePipe;
+exports.ProductsService = ProductsService;

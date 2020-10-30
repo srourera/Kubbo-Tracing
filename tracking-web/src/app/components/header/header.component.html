@@ -1,5 +1,5 @@
 <div id="header-container">
-    <div id="header" class="p-4 d-flex align-items-center mb-4 pl-3" [ngClass]="{'small': small}">
+    <div id="header" class="p-4 d-flex align-items-center mb-4 pl-3" [ngClass]="{'small': small}" (click)="goHome()">
         <img src="../../../assets/images/logo.svg" alt="Kubbo">
         <h2 class="pl-3">{{ title }}</h2>
     </div>
