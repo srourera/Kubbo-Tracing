@@ -60,7 +60,7 @@ mat-row:hover{
     }
     .mat-column-name,
     .mat-column-price {
-        flex: 0 0 27.5%;
+        flex: 0 0 22.5%;
     }
     .mat-column-barcode {        
         display: none;
@@ -74,7 +74,8 @@ mat-row:hover{
     .mat-column-price {
         flex: 0 0 32.5%;
     }
-    .mat-column-sku {        
+    .mat-column-sku,
+    .mat-column-enabled {        
         display: none;
     }
     .mat-column-actions {

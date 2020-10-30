@@ -30,8 +30,10 @@ var HomeRoute = /** @class */ (function () {
             var productId = !!p && !!p.productId && !isNaN(p.productId) ? Number(p.productId) : -1;
             if (productId !== -1)
                 _this.loadProduct(productId);
-            else
+            else {
+                _this.loadProducts();
                 _this.showCurrentProduct = false;
+            }
         });
         this.loadProducts();
     };
@@ -51,6 +53,8 @@ var HomeRoute = /** @class */ (function () {
         var _this = this;
         this.productsService.getProducts().subscribe(function (response) {
             _this.products = __spreadArrays(response, response, response, response, response);
+        }, function () {
+            _this.products = [];
         });
     };
     HomeRoute.prototype.productClicked = function (product) {

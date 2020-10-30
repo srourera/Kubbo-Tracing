@@ -27,7 +27,10 @@ export class HomeRoute implements OnInit {
       const productId = !!p && !!p.productId && !isNaN(p.productId) ? Number(p.productId) : -1;
 
       if(productId !== -1) this.loadProduct(productId);
-      else this.showCurrentProduct = false;
+      else {
+        this.loadProducts();
+        this.showCurrentProduct = false;
+      }
     });
 
     this.loadProducts();
@@ -50,6 +53,8 @@ export class HomeRoute implements OnInit {
     this.productsService.getProducts().subscribe(
       (response: Product[]) => {        
         this.products = [...response,...response,...response,...response,...response];
+      },()=>{
+        this.products = [];
       }
     );
   }
