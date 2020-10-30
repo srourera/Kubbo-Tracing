@@ -23,6 +23,10 @@ var ProductsTableComponent = /** @class */ (function () {
     ProductsTableComponent.prototype.seeProduct = function (product) {
         this.productClicked.emit(product);
     };
+    ProductsTableComponent.prototype.enableProduct = function (event, product) {
+        event.stopPropagation();
+        console.log("ENABLE", product);
+    };
     ProductsTableComponent.prototype.editProduct = function (event, product) {
         event.stopPropagation();
         console.log("EDIT", product);

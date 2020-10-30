@@ -28,6 +28,10 @@ export class ProductsTableComponent implements OnChanges {
   seeProduct(product: Product) {
     this.productClicked.emit(product);
   }
+  enableProduct(event, product: Product) {
+    event.stopPropagation();
+    console.log("ENABLE",product)
+  }
   editProduct(event,product: Product) {
     event.stopPropagation();
     console.log("EDIT",product)

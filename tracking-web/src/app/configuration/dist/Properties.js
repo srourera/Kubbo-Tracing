@@ -7,4 +7,4 @@ exports.baseUrl = 'http://localhost:8000/gui';
 exports.productsUrl = exports.baseUrl + '/products';
 exports.stocksUrl = exports.baseUrl + '/stocks';
 exports.warehousesUrl = exports.baseUrl + '/warehouses';
-exports.productColumns = ['image', 'name', 'sku', 'barcode', 'price', 'actions'];
+exports.productColumns = ['image', 'name', 'sku', 'barcode', 'price', 'enabled', 'actions'];

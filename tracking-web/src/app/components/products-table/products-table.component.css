@@ -10,8 +10,7 @@ mat-table.hidden {
     transition-duration: 1s;
 }
 
-mat-header-row {
-    color: white;
+mat-header-row {    
     background-color: var(--dark-color);
 }
 
@@ -22,6 +21,7 @@ mat-header-cell {
     justify-content: center;
 }
 mat-header-cell {
+    color: white !important;
     text-transform: uppercase;
 }
 
@@ -42,11 +42,14 @@ mat-row:hover{
 }
 .mat-column-name,
 .mat-column-price {
-    flex: 0 0 22.5%;
+    flex: 0 0 20%;
 }
 .mat-column-sku,
 .mat-column-barcode {
-    flex: 0 0 15%;
+    flex: 0 0 12.5%;
+}
+.mat-column-enabled {
+    flex: 0 0 10%;
 }
 .mat-column-actions {
     flex: 0 0 15%;

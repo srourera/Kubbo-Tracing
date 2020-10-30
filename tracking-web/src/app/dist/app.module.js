@@ -14,12 +14,14 @@ var http_1 = require("@angular/common/http");
 var table_1 = require("@angular/material/table");
 var sort_1 = require("@angular/material/sort");
 var icon_1 = require("@angular/material/icon");
+var slide_toggle_1 = require("@angular/material/slide-toggle");
 var app_routing_module_1 = require("./app-routing.module");
 var app_component_1 = require("./app.component");
 var home_route_1 = require("./routes/home/home.route");
 var header_component_1 = require("./components/header/header.component");
 var products_table_component_1 = require("./components/products-table/products-table.component");
 var price_pipe_1 = require("./pipes/price.pipe");
+var product_details_component_1 = require("./components/product-details/product-details.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -30,7 +32,8 @@ var AppModule = /** @class */ (function () {
                 home_route_1.HomeRoute,
                 header_component_1.HeaderComponent,
                 products_table_component_1.ProductsTableComponent,
-                price_pipe_1.PricePipe
+                price_pipe_1.PricePipe,
+                product_details_component_1.ProductDetailsComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -39,7 +42,8 @@ var AppModule = /** @class */ (function () {
                 http_1.HttpClientModule,
                 table_1.MatTableModule,
                 sort_1.MatSortModule,
-                icon_1.MatIconModule
+                icon_1.MatIconModule,
+                slide_toggle_1.MatSlideToggleModule
             ],
             providers: [],
             bootstrap: [app_component_1.AppComponent]

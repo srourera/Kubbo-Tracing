@@ -1,3 +1,4 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @font-face {
     font-family: KubboFont;
     src: url(./assets/fonts/Gilroy-Light.otf)
@@ -14,11 +15,13 @@
     --action-color: #ea61ae;
     --delete-color: #b70d00;
 
+    --dark-color-transparent: #313d7280;
     --transparent-shadow-light: #00000010;
     --transparent-shadow-medium: #00000020;
     --transparent-shadow-dark: #00000080;
     
     --background: linear-gradient(140deg, rgb(115, 83, 244) 0%, rgb(255, 102, 173) 100%);
+    --box-shadow-medium: 2px 2px 15px var(--transparent-shadow-medium);
     --box-shadow-dark: 2px 2px 15px var(--transparent-shadow-dark);
 
     --header-height: 85px;
@@ -27,6 +30,9 @@
     --max-width: 1200px;
     --padding: 1.5rem;
 }
+*:not(mat-icon) {
+    font-family: KubboFont, Georgia, 'Times New Roman', Times, serif !important;
+}
 
 html,body {
     height: 100vh;
@@ -34,8 +40,7 @@ html,body {
     padding: 0;
     overflow: hidden;
 }
-body {
-    font-family: KubboFont, Georgia, 'Times New Roman', Times, serif;
+body {    
     background: var(--background);
     background-size: cover;
     background-repeat: no-repeat;
@@ -60,6 +65,12 @@ strong {
 .mat-sort-header-arrow{
     position: absolute !important;
     right:-20px;
+}
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb{
+    background-color: var(--dark-color) !important;    
+}
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+    background-color: var(--dark-color-transparent) !important;    
 }
 :focus{
     outline: none !important;
