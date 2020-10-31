@@ -21,4 +21,8 @@ export class ProductsService {
   create(product: Product) {
     return this.http.post(productsUrl,product);
   }
+
+  edit(product: Product) {
+    return this.http.put(`${productsUrl}/${product.id}`,product);
+  }
 }

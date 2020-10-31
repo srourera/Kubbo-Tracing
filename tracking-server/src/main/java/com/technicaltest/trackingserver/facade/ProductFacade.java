@@ -24,4 +24,16 @@ public class ProductFacade {
     public ProductData create(ProductData productData) {
         return productService.create(productData);
     }
+
+    public ProductData edit(Long productId, ProductData productData) {
+        return productService.edit(productId, productData);
+    }
+
+    public void activate(Long productId) {
+        productService.activate(productId);
+    }
+
+    public void deactivate(Long productId) {
+        productService.deactivate(productId);
+    }
 }

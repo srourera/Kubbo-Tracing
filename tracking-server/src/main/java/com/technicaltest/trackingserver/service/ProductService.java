@@ -26,4 +26,16 @@ public class ProductService {
     public ProductData create(ProductData productData) {
         return productsClient.create(productData).getBody();
     }
+
+    public ProductData edit(Long productId, ProductData productData) {
+        return productsClient.edit(productId,productData).getBody();
+    }
+
+    public void activate(Long productId) {
+        productsClient.activateProduct(productId);
+    }
+
+    public void deactivate(Long productId) {
+        productsClient.deactivateProduct(productId);
+    }
 }

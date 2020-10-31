@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>{{!!product ? 'Edit' : 'Create'}} product</h1>
+<h1 mat-dialog-title>{{!!product.id ? 'Edit' : 'Create'}} product</h1>
 
 <mat-dialog-content>  
   
@@ -29,5 +29,5 @@
 
 <mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="product" cdkFocusInitial>{{!!product ? 'Edit' : 'Create'}}</button>
+  <button mat-button [mat-dialog-close]="product" cdkFocusInitial>{{!!product.id ? 'Edit' : 'Create'}}</button>
 </mat-dialog-actions>

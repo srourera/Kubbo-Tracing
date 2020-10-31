@@ -63,7 +63,7 @@ export class HomeRoute implements OnInit {
   private loadProducts(): void {
     this.productsService.getProducts().subscribe(
       (response: Product[]) => {        
-        this.products = [...response,...response,...response,...response,...response];
+        this.products = response;
       },()=>{
         this.products = [];
       }
@@ -81,13 +81,21 @@ export class HomeRoute implements OnInit {
 
   createProduct() {
     this.productDialog().subscribe((product: Product) => {
-      console.log("RESULT",product);
+
+      this.productsService.create(product).subscribe((product: Product) => {
+        this.router.navigate(['products',product.id]);
+      });
+
     });
   }  
 
   editProduct(product: Product) {
     this.productDialog(product).subscribe((product: Product) => {
-      console.log("RESULT",product);
+
+      this.productsService.edit(product).subscribe((product: Product) => {
+        this.router.navigate(['products',product.id]);
+      });
+
     });
   }
 

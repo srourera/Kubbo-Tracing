@@ -34,8 +34,34 @@ public class ProductsController {
         return new ResponseEntity<>(productFacade.getProductById(productId), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping(
+            consumes = MediaType.APPLICATION_JSON_VALUE
+    )
     public ResponseEntity<ProductData> createProduct(@RequestBody ProductData product){
         return new ResponseEntity<>(productFacade.create(product),HttpStatus.CREATED);
+    }
+
+    @PutMapping(
+            value = "/{productId}",
+            consumes = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<ProductData> editProduct(@PathVariable Long productId, @RequestBody ProductData product) throws Exception {
+        return new ResponseEntity<>(productFacade.edit(productId, product),HttpStatus.CREATED);
+    }
+
+    @PutMapping(
+            value = "/activate/{productId}"
+    )
+    public ResponseEntity activateProduct(@PathVariable Long productId) {
+        productFacade.activate(productId);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping(
+            value = "/deactivate/{productId}"
+    )
+    public ResponseEntity deactivateProduct(@PathVariable Long productId) {
+        productFacade.deactivate(productId);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

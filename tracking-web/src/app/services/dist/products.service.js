@@ -22,6 +22,9 @@ var ProductsService = /** @class */ (function () {
     ProductsService.prototype.create = function (product) {
         return this.http.post(Properties_1.productsUrl, product);
     };
+    ProductsService.prototype.edit = function (product) {
+        return this.http.put(Properties_1.productsUrl + "/" + product.id, product);
+    };
     ProductsService = __decorate([
         core_1.Injectable({
             providedIn: 'root'
