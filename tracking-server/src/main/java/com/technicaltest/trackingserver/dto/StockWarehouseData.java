@@ -11,10 +11,17 @@ public class StockWarehouseData {
 
     private Long productId;
 
-    private WarehouseData warehouseData;
+    private WarehouseData warehouse;
 
     private Integer quantity;
 
     private String status;
 
+    public StockWarehouseData(StockData stockData, WarehouseData warehouseData) {
+        this.id= stockData.getId();
+        this.quantity = stockData.getQuantity();
+        this.status = stockData.getStatus();
+        this.productId = stockData.getProductId();
+        this.warehouse = warehouseData;
+    }
 }

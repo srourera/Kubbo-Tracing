@@ -3,7 +3,7 @@ import { Warehouse } from './warehouse.model';
 export interface Stock {
     id: number;
     productId: number;
-    warehouseData: Warehouse;
+    warehouse: Warehouse;
     quantity: number;
     status: string;
 }
