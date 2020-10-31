@@ -1,3 +1,6 @@
+<div class="btn-container">
+  <button (click)="createStock()" class="btn btn-light"><mat-icon>add</mat-icon> New stock</button>
+</div>
 <mat-table [dataSource]='stockDataSource' matSort (matSortChange)="sortData($event)">
 
     <ng-container matColumnDef="name">

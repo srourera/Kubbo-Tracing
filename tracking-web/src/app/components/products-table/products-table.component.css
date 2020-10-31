@@ -129,6 +129,7 @@ img {
 .btn-container {
     text-align: right;
     transition-duration: 1s;
+    margin-bottom: 10px;
 }
 .btn-container.hidden {
     transform: translate(-100vw, 0px);

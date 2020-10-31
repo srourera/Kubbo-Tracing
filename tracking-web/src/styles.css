@@ -55,9 +55,14 @@ strong {
 
 .btn {
     background-color: var(--dark-color);
-    margin-bottom: 10px;
     color: white;
     border: 1px solid var(--dark-color);
+}
+.btn.btn-light {
+    background-color: white;    
+    color: black;
+    border: none;
+    box-shadow: var(--box-shadow-medium);
 }
 .btn mat-icon{
     font-size: 12px;

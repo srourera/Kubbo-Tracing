@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { stockColumns } from '../../configuration/Properties';
 import { Stock } from '../../models/stock.model';
@@ -13,6 +13,7 @@ export class StocksTableComponent implements OnChanges {
   stockColumns = stockColumns;
 
   @Input() stocks: Stock[] = [];
+  @Output() create: EventEmitter<any> = new EventEmitter();
 
   stockDataSource: MatTableDataSource<Stock>;
 
@@ -20,6 +21,10 @@ export class StocksTableComponent implements OnChanges {
 
   ngOnChanges(): void {
     this.stockDataSource = new MatTableDataSource<Stock>(this.stocks);
+  }
+
+  createStock() {
+    this.create.emit();
   }
 
   sortData(event) {

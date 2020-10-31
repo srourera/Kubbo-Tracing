@@ -28,20 +28,22 @@ var ProductsTableComponent = /** @class */ (function () {
         this.clicked.emit(product);
     };
     ProductsTableComponent.prototype.enableProduct = function (event, product) {
-        event.stopPropagation();
+        product.enabled = event.checked;
         this.enable.emit(product);
     };
-    ProductsTableComponent.prototype.createProduct = function (event) {
-        event.stopPropagation();
+    ProductsTableComponent.prototype.createProduct = function () {
         this.create.emit();
     };
     ProductsTableComponent.prototype.editProduct = function (event, product) {
-        event.stopPropagation();
+        this.stopPropagation(event);
         this.edit.emit(product);
     };
     ProductsTableComponent.prototype.deleteProduct = function (event, product) {
-        event.stopPropagation();
+        this.stopPropagation(event);
         this["delete"].emit(product);
+    };
+    ProductsTableComponent.prototype.stopPropagation = function (event) {
+        event.stopPropagation();
     };
     ProductsTableComponent.prototype.sortData = function (event) {
         this.sort(event.active, event.direction === "asc");

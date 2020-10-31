@@ -3,7 +3,12 @@ mat-table {
     overflow: hidden;
     background-color: white;
     box-shadow: var(--box-shadow-medium);
+}
+
+.btn-container {
+    text-align: right;
     margin-top: 25px;
+    margin-bottom: 10px;
 }
 
 mat-header-row {

@@ -34,25 +34,27 @@ export class ProductsTableComponent implements OnChanges {
   }
   
   enableProduct(event, product: Product) {
-    event.stopPropagation();
-    this.enable.emit(product)
+    product.enabled = event.checked;
+    this.enable.emit(product);
   }
 
-  createProduct(event) {
-    event.stopPropagation();
+  createProduct() {
     this.create.emit();
   }
 
   editProduct(event,product: Product) {
-    event.stopPropagation();
+    this.stopPropagation(event);
     this.edit.emit(product);    
   }
 
   deleteProduct(event,product: Product) {
-    event.stopPropagation();
+    this.stopPropagation(event);
     this.delete.emit(product);
   }
 
+  stopPropagation(event){
+    event.stopPropagation();
+  }
   sortData(event) {
     this.sort(event.active, event.direction === "asc");
   }

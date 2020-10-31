@@ -63,3 +63,18 @@
     padding: 5px 10px;
     float: right;
 }
+
+.product .actions{
+    float: right;
+}
+.product .actions mat-icon {
+    margin: 0 5px;
+    color: #666;
+    cursor: pointer;
+}
+.product .actions mat-icon.edit:hover {
+    color: var(--dark-color);
+}
+.product .actions mat-icon.delete:hover {
+    color: var(--delete-color);
+}

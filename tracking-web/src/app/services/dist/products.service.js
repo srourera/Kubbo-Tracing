@@ -25,6 +25,12 @@ var ProductsService = /** @class */ (function () {
     ProductsService.prototype.edit = function (product) {
         return this.http.put(Properties_1.productsUrl + "/" + product.id, product);
     };
+    ProductsService.prototype.activate = function (productId) {
+        return this.http.put(Properties_1.productsUrl + "/activate/" + productId, {});
+    };
+    ProductsService.prototype.deactivate = function (productId) {
+        return this.http.put(Properties_1.productsUrl + "/deactivate/" + productId, {});
+    };
     ProductsService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

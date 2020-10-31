@@ -25,4 +25,12 @@ export class ProductsService {
   edit(product: Product) {
     return this.http.put(`${productsUrl}/${product.id}`,product);
   }
+
+  activate(productId: number) {
+    return this.http.put(`${productsUrl}/activate/${productId}`,{});
+  }
+
+  deactivate(productId: number) {
+    return this.http.put(`${productsUrl}/deactivate/${productId}`,{});
+  }
 }
