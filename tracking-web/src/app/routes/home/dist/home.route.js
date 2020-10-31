@@ -16,12 +16,14 @@ exports.__esModule = true;
 exports.HomeRoute = void 0;
 var core_1 = require("@angular/core");
 var HomeRoute = /** @class */ (function () {
-    function HomeRoute(productsService, router, route) {
+    function HomeRoute(productsService, stockService, router, route) {
         this.productsService = productsService;
+        this.stockService = stockService;
         this.router = router;
         this.route = route;
         this.showCurrentProduct = false;
         this.currentProduct = {};
+        this.currentProductStock = [];
     }
     ;
     HomeRoute.prototype.ngOnInit = function () {
@@ -35,10 +37,11 @@ var HomeRoute = /** @class */ (function () {
                 _this.showCurrentProduct = false;
             }
         });
-        this.loadProducts();
     };
     HomeRoute.prototype.loadProduct = function (productId) {
         var _this = this;
+        this.currentProduct = {};
+        this.currentProductStock = [];
         this.productsService.getProductById(productId).subscribe(function (response) {
             if (!response)
                 _this.router.navigate(['']);
@@ -48,6 +51,7 @@ var HomeRoute = /** @class */ (function () {
             _this.showCurrentProduct = false;
             _this.router.navigate(['']);
         });
+        this.loadStock(productId);
     };
     HomeRoute.prototype.loadProducts = function () {
         var _this = this;
@@ -56,6 +60,14 @@ var HomeRoute = /** @class */ (function () {
         }, function () {
             _this.products = [];
         });
+    };
+    HomeRoute.prototype.loadStock = function (productId) {
+        var _this = this;
+        this.stockService.getStockByProductId(productId).subscribe(function (response) {
+            if (!response)
+                return;
+            _this.currentProductStock = response;
+        }, function () { });
     };
     HomeRoute.prototype.productClicked = function (product) {
         this.router.navigate(['products', product.id]);

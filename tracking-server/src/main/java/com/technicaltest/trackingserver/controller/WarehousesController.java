@@ -1,8 +1,9 @@
-package com.technicaltest.trackingserver.controllers;
+package com.technicaltest.trackingserver.controller;
 
-import com.technicaltest.trackingserver.clients.StocksClient;
-import com.technicaltest.trackingserver.dto.StockData;
+import com.technicaltest.trackingserver.facade.WarehouseFacade;
+import com.technicaltest.trackingserver.dto.WarehouseData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,20 +11,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(
-        value = "/gui/stocks",
+        value = "/gui/warehouses",
         produces = MediaType.APPLICATION_JSON_VALUE
 )
-public class StocksController {
+public class WarehousesController {
 
     @Autowired
-    private StocksClient stocksClient;
+    private WarehouseFacade warehouseFacade;
 
     @GetMapping
-    public ResponseEntity<List<StockData>> getStocks(){
-        return stocksClient.getStocks();
+    public ResponseEntity<List<WarehouseData>> getWarehouses(){
+        return new ResponseEntity<>(warehouseFacade.getWarehouses(), HttpStatus.OK);
     }
+
 }

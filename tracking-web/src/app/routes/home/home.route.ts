@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Stock } from '../../models/stock.model';
+import { StocksService } from '../../services/stocks.service';
 
 @Component({
   selector: 'home',
@@ -15,9 +17,11 @@ export class HomeRoute implements OnInit {
 
   showCurrentProduct: boolean = false;
   currentProduct: Product = {} as Product;
+  currentProductStock: Stock[] = [];
 
   constructor(
     private productsService: ProductsService,
+    private stockService: StocksService,
     private router: Router,
     private route: ActivatedRoute
   ){};
@@ -32,21 +36,24 @@ export class HomeRoute implements OnInit {
         this.showCurrentProduct = false;
       }
     });
-
-    this.loadProducts();
   }
 
   private loadProduct(productId:number) {
+    this.currentProduct = {} as Product;
+    this.currentProductStock = [];
+
     this.productsService.getProductById(productId).subscribe(
       (response: Product) => {        
         if(!response) this.router.navigate(['']);
         this.currentProduct = response;        
-        this.showCurrentProduct = true;
+        this.showCurrentProduct = true;        
       },()=>{        
         this.showCurrentProduct = false;
         this.router.navigate(['']);
       }
     );
+
+    this.loadStock(productId);
   }
 
   private loadProducts(): void {
@@ -56,6 +63,15 @@ export class HomeRoute implements OnInit {
       },()=>{
         this.products = [];
       }
+    );
+  }
+
+  private loadStock(productId: number){
+    this.stockService.getStockByProductId(productId).subscribe(
+      (response: Stock[]) => {        
+        if(!response) return;
+        this.currentProductStock = response;        
+      },()=>{}
     );
   }
 

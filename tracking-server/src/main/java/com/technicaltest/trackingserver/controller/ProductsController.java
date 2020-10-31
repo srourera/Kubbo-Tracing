@@ -1,7 +1,8 @@
-package com.technicaltest.trackingserver.controllers;
+package com.technicaltest.trackingserver.controller;
 
 import com.technicaltest.trackingserver.clients.ProductsClient;
 import com.technicaltest.trackingserver.dto.ProductData;
+import com.technicaltest.trackingserver.facade.ProductFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(
@@ -22,17 +22,17 @@ import java.util.Map;
 public class ProductsController {
 
     @Autowired
-    private ProductsClient productsClient;
+    private ProductFacade productFacade;
 
     @GetMapping
     public ResponseEntity<List<ProductData>> getProducts(){
-        return productsClient.getProducts();
+        return new ResponseEntity<>(productFacade.getProducts(), HttpStatus.OK);
     }
 
     @GetMapping(
         value = "/{productId}"
     )
     public ResponseEntity<ProductData> getProductById(@PathVariable Long productId){
-        return productsClient.getProductById(productId);
+        return new ResponseEntity<>(productFacade.getProductById(productId), HttpStatus.OK);
     }
 }

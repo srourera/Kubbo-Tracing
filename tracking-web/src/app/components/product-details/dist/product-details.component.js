@@ -20,6 +20,9 @@ var ProductDetailsComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], ProductDetailsComponent.prototype, "product");
+    __decorate([
+        core_1.Input()
+    ], ProductDetailsComponent.prototype, "stocks");
     ProductDetailsComponent = __decorate([
         core_1.Component({
             selector: 'product-details',

@@ -1,4 +1,4 @@
 <div class="route">
-    <product-details [ngClass]="{'hidden': !showCurrentProduct}" [hidden]="!showCurrentProduct" [product]="currentProduct"></product-details>
+    <product-details [ngClass]="{'hidden': !showCurrentProduct}" [hidden]="!showCurrentProduct" [product]="currentProduct" [stocks]="currentProductStock"></product-details>
     <products-table *ngIf="!!products" [hidden]="showCurrentProduct" [products]="products" (productClicked)="productClicked($event)"></products-table>
 </div>
