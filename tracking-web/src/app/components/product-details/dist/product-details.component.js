@@ -8,9 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.ProductDetailsComponent = void 0;
 var core_1 = require("@angular/core");
+var stock_dialog_1 = require("../stock-dialog/stock-dialog");
 var ProductDetailsComponent = /** @class */ (function () {
-    function ProductDetailsComponent(stocksService) {
+    function ProductDetailsComponent(stocksService, dialog) {
         this.stocksService = stocksService;
+        this.dialog = dialog;
         this.hidden = false;
         this.stocks = [];
         this.edit = new core_1.EventEmitter();
@@ -42,7 +44,38 @@ var ProductDetailsComponent = /** @class */ (function () {
         this["delete"].emit(product);
     };
     ProductDetailsComponent.prototype.addStock = function () {
-        console.log("ADD stock");
+        var _this = this;
+        if (!!this.product && !!this.product.id) {
+            var stock = {
+                productId: this.product.id
+            };
+            this.stockDialog(stock).subscribe(function (stock) {
+                if (!stock)
+                    return;
+                _this.stocksService.create(stock).subscribe(function (stock) {
+                    _this.loadStock();
+                });
+            });
+        }
+    };
+    ProductDetailsComponent.prototype.editStock = function (stock) {
+        var _this = this;
+        var s = Object.assign({}, stock);
+        s.warehouseId = !!s.warehouse ? s.warehouse.id : null;
+        this.stockDialog(s).subscribe(function (stock) {
+            if (!stock)
+                return;
+            _this.stocksService.edit(stock).subscribe(function (stock) {
+                _this.loadStock();
+            });
+        });
+    };
+    ProductDetailsComponent.prototype.stockDialog = function (stock) {
+        var dialogRef = this.dialog.open(stock_dialog_1.StockDialog, {
+            width: '80vw',
+            data: stock
+        });
+        return dialogRef.afterClosed();
     };
     __decorate([
         core_1.Input()

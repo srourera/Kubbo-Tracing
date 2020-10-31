@@ -14,4 +14,12 @@ export class StocksService {
   getStockByProductId(productId: number): Observable<Stock[]> {
     return this.http.get<Stock[]>(`${stocksUrl}/${productId}`);
   }
+
+  create(stock: Stock) {
+    return this.http.post(stocksUrl,stock);
+  }
+
+  edit(stock: Stock) {
+    return this.http.put(`${stocksUrl}/${stock.id}`,stock);
+  }
 }

@@ -1,6 +1,7 @@
 package com.technicaltest.trackingserver.service;
 
 import com.technicaltest.trackingserver.clients.StocksClient;
+import com.technicaltest.trackingserver.dto.ProductData;
 import com.technicaltest.trackingserver.dto.StockData;
 import com.technicaltest.trackingserver.dto.StockWarehouseData;
 import com.technicaltest.trackingserver.dto.WarehouseData;
@@ -36,5 +37,13 @@ public class StockService {
         List<WarehouseData> warehouseDataList = warehouseService.getWarehousesByList(warehouseIds);
 
         return stockUtils.getStockWarehouseList(stockDataList,warehouseDataList);
+    }
+
+    public StockData create(StockData stockData) {
+        return stocksClient.createStock(stockData).getBody();
+    }
+
+    public StockData edit(Long stockId, StockData stockData) {
+        return stocksClient.editStock(stockId,stockData).getBody();
     }
 }

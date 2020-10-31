@@ -9,6 +9,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +21,7 @@ import { PricePipe } from './pipes/price.pipe';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { StocksTableComponent } from './components/stocks-table/stocks-table.component';
 import { ProductDialog } from './components/product-dialog/product-dialog';
+import { StockDialog } from './components/stock-dialog/stock-dialog';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { ProductDialog } from './components/product-dialog/product-dialog';
     PricePipe,
     ProductDetailsComponent,
     StocksTableComponent,
-    ProductDialog
+    ProductDialog,
+    StockDialog
   ],
   imports: [
     BrowserModule,
@@ -44,6 +47,7 @@ import { ProductDialog } from './components/product-dialog/product-dialog';
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     FormsModule
   ],
   providers: [],

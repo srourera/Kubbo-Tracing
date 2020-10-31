@@ -14,6 +14,7 @@ export class StocksTableComponent implements OnChanges {
 
   @Input() stocks: Stock[] = [];
   @Output() create: EventEmitter<any> = new EventEmitter();
+  @Output() edit: EventEmitter<Stock> = new EventEmitter();
 
   stockDataSource: MatTableDataSource<Stock>;
 
@@ -25,6 +26,10 @@ export class StocksTableComponent implements OnChanges {
 
   createStock() {
     this.create.emit();
+  }
+
+  editStock(stock: Stock) {
+    this.edit.emit(stock);    
   }
 
   sortData(event) {

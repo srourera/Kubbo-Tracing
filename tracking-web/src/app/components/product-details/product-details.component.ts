@@ -2,6 +2,9 @@ import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core
 import { Product } from '../../models/product.model';
 import { Stock } from '../../models/stock.model';
 import { StocksService } from '../../services/stocks.service';
+import { MatDialog } from '@angular/material/dialog';
+import { StockDialog } from '../stock-dialog/stock-dialog';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'product-details',
@@ -17,9 +20,12 @@ export class ProductDetailsComponent implements OnChanges {
   @Output() enable: EventEmitter<Product> = new EventEmitter();
   @Output() delete: EventEmitter<Product> = new EventEmitter();
 
-  constructor(private stocksService: StocksService) { }
+  constructor(
+    private stocksService: StocksService,
+    public dialog: MatDialog
+  ) { }
 
-  ngOnChanges(): void {
+  ngOnChanges() {
     this.loadStock();
   }
 
@@ -50,7 +56,35 @@ export class ProductDetailsComponent implements OnChanges {
   }
 
   addStock() {
-    console.log("ADD stock");
+    if(!!this.product && !!this.product.id){
+      const stock = {
+        productId: this.product.id
+      } as Stock;
+      this.stockDialog(stock).subscribe((stock: Stock) => {
+        if(!stock) return;
+        this.stocksService.create(stock).subscribe((stock: Stock) => {
+          this.loadStock();
+        });
+      });
+    }    
+  }
+  editStock(stock: Stock){
+    const s = Object.assign({},stock);
+    s.warehouseId = !!s.warehouse ? s.warehouse.id : null;
+    this.stockDialog(s).subscribe((stock: Stock) => {
+      if(!stock) return;
+      this.stocksService.edit(stock).subscribe((stock: Stock) => {
+        this.loadStock();
+      });
+    });
+  }
+
+  private stockDialog(stock: Stock): Observable<Stock> {
+    const dialogRef = this.dialog.open(StockDialog, {
+      width: '80vw',
+      data: stock
+    });
+    return dialogRef.afterClosed();
   }
 
 }

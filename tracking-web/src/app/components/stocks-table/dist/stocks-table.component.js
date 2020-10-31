@@ -15,12 +15,16 @@ var StocksTableComponent = /** @class */ (function () {
         this.stockColumns = Properties_1.stockColumns;
         this.stocks = [];
         this.create = new core_1.EventEmitter();
+        this.edit = new core_1.EventEmitter();
     }
     StocksTableComponent.prototype.ngOnChanges = function () {
         this.stockDataSource = new table_1.MatTableDataSource(this.stocks);
     };
     StocksTableComponent.prototype.createStock = function () {
         this.create.emit();
+    };
+    StocksTableComponent.prototype.editStock = function (stock) {
+        this.edit.emit(stock);
     };
     StocksTableComponent.prototype.sortData = function (event) {
         this.sort(event.active, event.direction === "asc");
@@ -42,6 +46,9 @@ var StocksTableComponent = /** @class */ (function () {
     __decorate([
         core_1.Output()
     ], StocksTableComponent.prototype, "create");
+    __decorate([
+        core_1.Output()
+    ], StocksTableComponent.prototype, "edit");
     StocksTableComponent = __decorate([
         core_1.Component({
             selector: 'stocks-table',

@@ -9,3 +9,5 @@ export const warehousesUrl = baseUrl + '/warehouses';
 
 export const productColumns = ['image', 'name', 'sku', 'barcode', 'price', 'enabled', 'actions'];
 export const stockColumns = ['name','city','quantity','status','actions'];
+
+export const stockStatus = ['AVAILABLE','DAMAGED','ASSIGNED'];

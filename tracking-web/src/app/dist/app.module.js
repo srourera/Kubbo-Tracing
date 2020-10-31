@@ -18,6 +18,7 @@ var slide_toggle_1 = require("@angular/material/slide-toggle");
 var dialog_1 = require("@angular/material/dialog");
 var form_field_1 = require("@angular/material/form-field");
 var input_1 = require("@angular/material/input");
+var select_1 = require("@angular/material/select");
 var forms_1 = require("@angular/forms");
 var app_routing_module_1 = require("./app-routing.module");
 var app_component_1 = require("./app.component");
@@ -28,6 +29,7 @@ var price_pipe_1 = require("./pipes/price.pipe");
 var product_details_component_1 = require("./components/product-details/product-details.component");
 var stocks_table_component_1 = require("./components/stocks-table/stocks-table.component");
 var product_dialog_1 = require("./components/product-dialog/product-dialog");
+var stock_dialog_1 = require("./components/stock-dialog/stock-dialog");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -41,7 +43,8 @@ var AppModule = /** @class */ (function () {
                 price_pipe_1.PricePipe,
                 product_details_component_1.ProductDetailsComponent,
                 stocks_table_component_1.StocksTableComponent,
-                product_dialog_1.ProductDialog
+                product_dialog_1.ProductDialog,
+                stock_dialog_1.StockDialog
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -55,6 +58,7 @@ var AppModule = /** @class */ (function () {
                 dialog_1.MatDialogModule,
                 form_field_1.MatFormFieldModule,
                 input_1.MatInputModule,
+                select_1.MatSelectModule,
                 forms_1.FormsModule
             ],
             providers: [],

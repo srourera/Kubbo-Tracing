@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>{{!!stock.id ? 'Edit' : 'Create'}} stock</h1>
+
+<mat-dialog-content>  
+  
+  <mat-form-field>
+    <mat-label>Stock warehouse</mat-label>
+    <mat-select [(ngModel)]="stock.warehouseId" selected>
+      <mat-option *ngFor="let warehouse of warehouses" [value]="warehouse.id">
+        {{warehouse.name}} ({{warehouse.city}})
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-label>Stock quantity</mat-label>
+    <input matInput type="number" [(ngModel)]="stock.quantity">
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-label>Stock status</mat-label>
+    <mat-select [(ngModel)]="stock.status">
+      <mat-option *ngFor="let status of stockStatus" [value]="status">
+        {{status}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="stock" cdkFocusInitial>{{!!stock.id ? 'Edit' : 'Create'}}</button>
+</mat-dialog-actions>

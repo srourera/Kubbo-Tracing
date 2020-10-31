@@ -16,6 +16,12 @@ var StocksService = /** @class */ (function () {
     StocksService.prototype.getStockByProductId = function (productId) {
         return this.http.get(Properties_1.stocksUrl + "/" + productId);
     };
+    StocksService.prototype.create = function (stock) {
+        return this.http.post(Properties_1.stocksUrl, stock);
+    };
+    StocksService.prototype.edit = function (stock) {
+        return this.http.put(Properties_1.stocksUrl + "/" + stock.id, stock);
+    };
     StocksService = __decorate([
         core_1.Injectable({
             providedIn: 'root'
