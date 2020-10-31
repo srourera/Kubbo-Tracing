@@ -19,6 +19,9 @@ var ProductsService = /** @class */ (function () {
     ProductsService.prototype.getProductById = function (id) {
         return this.http.get(Properties_1.productsUrl + "/" + id);
     };
+    ProductsService.prototype.create = function (product) {
+        return this.http.post(Properties_1.productsUrl, product);
+    };
     ProductsService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

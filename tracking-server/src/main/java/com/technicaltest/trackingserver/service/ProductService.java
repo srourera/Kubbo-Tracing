@@ -22,4 +22,8 @@ public class ProductService {
     public ProductData getProductById(Long productId) {
         return productsClient.getProductById(productId).getBody();
     }
+
+    public ProductData create(ProductData productData) {
+        return productsClient.create(productData).getBody();
+    }
 }

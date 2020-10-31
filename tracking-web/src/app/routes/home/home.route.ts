@@ -80,14 +80,14 @@ export class HomeRoute implements OnInit {
   }
 
   createProduct() {
-    this.productDialog().subscribe((result: Product) => {
-      console.log("RESULT",result);
+    this.productDialog().subscribe((product: Product) => {
+      console.log("RESULT",product);
     });
   }  
 
   editProduct(product: Product) {
-    this.productDialog(product).subscribe((result: Product) => {
-      console.log("RESULT",result);
+    this.productDialog(product).subscribe((product: Product) => {
+      console.log("RESULT",product);
     });
   }
 
@@ -95,7 +95,7 @@ export class HomeRoute implements OnInit {
     this.router.navigate(['products',product.id]);
   }
 
-  private productDialog(product: Product = null): Observable<Product> {
+  private productDialog(product: Product = {} as Product): Observable<Product> {
     const dialogRef = this.dialog.open(ProductDialog, {
       width: '80vw',
       data: product

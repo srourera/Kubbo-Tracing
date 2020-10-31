@@ -72,20 +72,20 @@ var HomeRoute = /** @class */ (function () {
         }, function () { });
     };
     HomeRoute.prototype.createProduct = function () {
-        this.productDialog().subscribe(function (result) {
-            console.log("RESULT", result);
+        this.productDialog().subscribe(function (product) {
+            console.log("RESULT", product);
         });
     };
     HomeRoute.prototype.editProduct = function (product) {
-        this.productDialog(product).subscribe(function (result) {
-            console.log("RESULT", result);
+        this.productDialog(product).subscribe(function (product) {
+            console.log("RESULT", product);
         });
     };
     HomeRoute.prototype.productClicked = function (product) {
         this.router.navigate(['products', product.id]);
     };
     HomeRoute.prototype.productDialog = function (product) {
-        if (product === void 0) { product = null; }
+        if (product === void 0) { product = {}; }
         var dialogRef = this.dialog.open(product_dialog_1.ProductDialog, {
             width: '80vw',
             data: product

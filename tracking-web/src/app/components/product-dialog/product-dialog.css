@@ -1,6 +1,9 @@
 h1 {
     text-align: center;
-    margin: 20px 0;
+    background: var(--dark-color);
+    padding: 10px 0;
+    color: white;
+    border-radius: 5px;
 }
 
 mat-form-field {

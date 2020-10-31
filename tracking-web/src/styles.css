@@ -53,6 +53,22 @@ strong {
     font-family: KubboFontBold, Georgia, 'Times New Roman', Times, serif;
 }
 
+.btn {
+    background-color: var(--dark-color);
+    margin-bottom: 10px;
+    color: white;
+    border: 1px solid var(--dark-color);
+}
+.btn mat-icon{
+    font-size: 12px;
+    height: 12px;
+    width: 12px;
+}
+.btn:hover {
+    color: white;
+    background-color: var(--dark-color-transparent);
+}
+
 .route {
     margin: 0 auto;
     max-width: var(--max-width);
@@ -82,4 +98,10 @@ mat-cell:last-of-type, mat-header-cell:last-of-type, mat-footer-cell:last-of-typ
 }
 :focus{
     outline: none !important;
+}
+.mat-form-field.mat-focused .mat-form-field-label {
+    color: var(--dark-color);
+}
+.mat-form-field.mat-focused .mat-form-field-ripple {
+    background-color: var(--dark-color);
 }

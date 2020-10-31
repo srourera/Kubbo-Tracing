@@ -125,3 +125,12 @@ img {
     object-fit: contain;
     margin-right: 15px;
 }
+
+.btn-container {
+    text-align: right;
+    transition-duration: 1s;
+}
+.btn-container.hidden {
+    transform: translate(-100vw, 0px);
+    transition-duration: 1s;
+}

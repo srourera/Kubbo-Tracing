@@ -20,4 +20,8 @@ public class ProductFacade {
     public ProductData getProductById(Long productId) {
         return productService.getProductById(productId);
     }
+
+    public ProductData create(ProductData productData) {
+        return productService.create(productData);
+    }
 }

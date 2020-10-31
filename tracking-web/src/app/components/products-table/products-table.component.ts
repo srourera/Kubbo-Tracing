@@ -14,10 +14,11 @@ export class ProductsTableComponent implements OnChanges {
 
   @Input() products: Product[] = [];
   @Input() hidden: boolean = false;
-  @Output() productClicked: EventEmitter<Product> = new EventEmitter();
-  @Output() editProductClicked: EventEmitter<Product> = new EventEmitter();
-  @Output() enableProductClicked: EventEmitter<Product> = new EventEmitter();
-  @Output() deleteProductClicked: EventEmitter<Product> = new EventEmitter();
+  @Output() clicked: EventEmitter<Product> = new EventEmitter();
+  @Output() create: EventEmitter<any> = new EventEmitter();
+  @Output() edit: EventEmitter<Product> = new EventEmitter();
+  @Output() enable: EventEmitter<Product> = new EventEmitter();
+  @Output() delete: EventEmitter<Product> = new EventEmitter();
 
   productsDataSource: MatTableDataSource<Product>;
 
@@ -29,22 +30,27 @@ export class ProductsTableComponent implements OnChanges {
   }
 
   seeProduct(product: Product) {
-    this.productClicked.emit(product);
+    this.clicked.emit(product);
   }
   
   enableProduct(event, product: Product) {
     event.stopPropagation();
-    this.enableProductClicked.emit(product)
+    this.enable.emit(product)
+  }
+
+  createProduct(event) {
+    event.stopPropagation();
+    this.create.emit();
   }
 
   editProduct(event,product: Product) {
     event.stopPropagation();
-    this.editProductClicked.emit(product)    
+    this.edit.emit(product);    
   }
 
   deleteProduct(event,product: Product) {
     event.stopPropagation();
-    this.deleteProductClicked.emit(product)
+    this.delete.emit(product);
   }
 
   sortData(event) {

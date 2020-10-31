@@ -1,3 +1,6 @@
+<div class="btn-container" [ngClass]="{'hidden': hidden}">
+  <button (click)="createProduct($event)" class="btn"><mat-icon>add</mat-icon> New product</button>
+</div>
 <mat-table [dataSource]='productsDataSource' matSort (matSortChange)="sortData($event)" [ngClass]="{'hidden': hidden}">
 
     <ng-container matColumnDef="image">
