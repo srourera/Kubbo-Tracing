@@ -4,6 +4,9 @@ import { Product } from '../../models/product.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Stock } from '../../models/stock.model';
 import { StocksService } from '../../services/stocks.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ProductDialog } from '../../components/product-dialog/product-dialog';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'home',
@@ -22,6 +25,7 @@ export class HomeRoute implements OnInit {
   constructor(
     private productsService: ProductsService,
     private stockService: StocksService,
+    public dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute
   ){};
@@ -75,7 +79,27 @@ export class HomeRoute implements OnInit {
     );
   }
 
+  createProduct() {
+    this.productDialog().subscribe((result: Product) => {
+      console.log("RESULT",result);
+    });
+  }  
+
+  editProduct(product: Product) {
+    this.productDialog(product).subscribe((result: Product) => {
+      console.log("RESULT",result);
+    });
+  }
+
   productClicked(product: Product) {
     this.router.navigate(['products',product.id]);
+  }
+
+  private productDialog(product: Product = null): Observable<Product> {
+    const dialogRef = this.dialog.open(ProductDialog, {
+      width: '80vw',
+      data: product
+    });
+    return dialogRef.afterClosed();
   }
 }

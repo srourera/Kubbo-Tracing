@@ -6,6 +6,10 @@ import { MatTableModule } from '@angular/material/table'
 import { MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +18,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { ProductsTableComponent } from './components/products-table/products-table.component';
 import { PricePipe } from './pipes/price.pipe';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { StocksTableComponent } from './components/stocks-table/stocks-table.component';
+import { ProductDialog } from './components/product-dialog/product-dialog';
 
 @NgModule({
   declarations: [
@@ -22,7 +28,9 @@ import { ProductDetailsComponent } from './components/product-details/product-de
     HeaderComponent,
     ProductsTableComponent,
     PricePipe,
-    ProductDetailsComponent 
+    ProductDetailsComponent,
+    StocksTableComponent,
+    ProductDialog
   ],
   imports: [
     BrowserModule,
@@ -32,7 +40,11 @@ import { ProductDetailsComponent } from './components/product-details/product-de
     MatTableModule,
     MatSortModule,
     MatIconModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

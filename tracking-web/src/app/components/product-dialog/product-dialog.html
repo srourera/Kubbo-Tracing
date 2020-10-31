@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>{{!!product ? 'Edit' : 'Create'}} product</h1>
+
+<mat-dialog-content>  
+  
+    <mat-form-field>
+    <mat-label>Product name</mat-label>
+    <input matInput [(ngModel)]="product.name">
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-label>Product sku</mat-label>
+    <input matInput [(ngModel)]="product.sku">
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-label>Product barcode</mat-label>
+    <input matInput [(ngModel)]="product.barcode">
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-label>Product price</mat-label>
+    <input matInput [(ngModel)]="product.price">
+  </mat-form-field>
+
+  <mat-label class="enabled-label">Enabled</mat-label>
+  <mat-slide-toggle [checked]="product.enabled" (change)="toggleEnabled($event)"></mat-slide-toggle>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="product" cdkFocusInitial>{{!!product ? 'Edit' : 'Create'}}</button>
+</mat-dialog-actions>

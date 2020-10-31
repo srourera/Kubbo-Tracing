@@ -16,6 +16,9 @@ var ProductsTableComponent = /** @class */ (function () {
         this.products = [];
         this.hidden = false;
         this.productClicked = new core_1.EventEmitter();
+        this.editProductClicked = new core_1.EventEmitter();
+        this.enableProductClicked = new core_1.EventEmitter();
+        this.deleteProductClicked = new core_1.EventEmitter();
     }
     ProductsTableComponent.prototype.ngOnChanges = function () {
         this.productsDataSource = new table_1.MatTableDataSource(this.products);
@@ -25,15 +28,15 @@ var ProductsTableComponent = /** @class */ (function () {
     };
     ProductsTableComponent.prototype.enableProduct = function (event, product) {
         event.stopPropagation();
-        console.log("ENABLE", product);
+        this.enableProductClicked.emit(product);
     };
     ProductsTableComponent.prototype.editProduct = function (event, product) {
         event.stopPropagation();
-        console.log("EDIT", product);
+        this.editProductClicked.emit(product);
     };
     ProductsTableComponent.prototype.deleteProduct = function (event, product) {
         event.stopPropagation();
-        console.log("DELETE", product);
+        this.deleteProductClicked.emit(product);
     };
     ProductsTableComponent.prototype.sortData = function (event) {
         this.sort(event.active, event.direction === "asc");
@@ -58,6 +61,15 @@ var ProductsTableComponent = /** @class */ (function () {
     __decorate([
         core_1.Output()
     ], ProductsTableComponent.prototype, "productClicked");
+    __decorate([
+        core_1.Output()
+    ], ProductsTableComponent.prototype, "editProductClicked");
+    __decorate([
+        core_1.Output()
+    ], ProductsTableComponent.prototype, "enableProductClicked");
+    __decorate([
+        core_1.Output()
+    ], ProductsTableComponent.prototype, "deleteProductClicked");
     ProductsTableComponent = __decorate([
         core_1.Component({
             selector: 'products-table',

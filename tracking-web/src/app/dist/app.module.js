@@ -15,6 +15,10 @@ var table_1 = require("@angular/material/table");
 var sort_1 = require("@angular/material/sort");
 var icon_1 = require("@angular/material/icon");
 var slide_toggle_1 = require("@angular/material/slide-toggle");
+var dialog_1 = require("@angular/material/dialog");
+var form_field_1 = require("@angular/material/form-field");
+var input_1 = require("@angular/material/input");
+var forms_1 = require("@angular/forms");
 var app_routing_module_1 = require("./app-routing.module");
 var app_component_1 = require("./app.component");
 var home_route_1 = require("./routes/home/home.route");
@@ -22,6 +26,8 @@ var header_component_1 = require("./components/header/header.component");
 var products_table_component_1 = require("./components/products-table/products-table.component");
 var price_pipe_1 = require("./pipes/price.pipe");
 var product_details_component_1 = require("./components/product-details/product-details.component");
+var stocks_table_component_1 = require("./components/stocks-table/stocks-table.component");
+var product_dialog_1 = require("./components/product-dialog/product-dialog");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -33,7 +39,9 @@ var AppModule = /** @class */ (function () {
                 header_component_1.HeaderComponent,
                 products_table_component_1.ProductsTableComponent,
                 price_pipe_1.PricePipe,
-                product_details_component_1.ProductDetailsComponent
+                product_details_component_1.ProductDetailsComponent,
+                stocks_table_component_1.StocksTableComponent,
+                product_dialog_1.ProductDialog
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -43,7 +51,11 @@ var AppModule = /** @class */ (function () {
                 table_1.MatTableModule,
                 sort_1.MatSortModule,
                 icon_1.MatIconModule,
-                slide_toggle_1.MatSlideToggleModule
+                slide_toggle_1.MatSlideToggleModule,
+                dialog_1.MatDialogModule,
+                form_field_1.MatFormFieldModule,
+                input_1.MatInputModule,
+                forms_1.FormsModule
             ],
             providers: [],
             bootstrap: [app_component_1.AppComponent]

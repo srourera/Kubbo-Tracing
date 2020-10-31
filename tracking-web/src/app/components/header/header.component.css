@@ -7,9 +7,10 @@
     height: var(--header-height);
     width: 100%;
     position: fixed;
+    top: 0;
     transition-duration: 0.4s;
     cursor: pointer;
-    z-index: 9999;
+    z-index: 99;
 }
 
 img {

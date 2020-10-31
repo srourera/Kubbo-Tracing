@@ -15,10 +15,12 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 exports.__esModule = true;
 exports.HomeRoute = void 0;
 var core_1 = require("@angular/core");
+var product_dialog_1 = require("../../components/product-dialog/product-dialog");
 var HomeRoute = /** @class */ (function () {
-    function HomeRoute(productsService, stockService, router, route) {
+    function HomeRoute(productsService, stockService, dialog, router, route) {
         this.productsService = productsService;
         this.stockService = stockService;
+        this.dialog = dialog;
         this.router = router;
         this.route = route;
         this.showCurrentProduct = false;
@@ -69,8 +71,26 @@ var HomeRoute = /** @class */ (function () {
             _this.currentProductStock = response;
         }, function () { });
     };
+    HomeRoute.prototype.createProduct = function () {
+        this.productDialog().subscribe(function (result) {
+            console.log("RESULT", result);
+        });
+    };
+    HomeRoute.prototype.editProduct = function (product) {
+        this.productDialog(product).subscribe(function (result) {
+            console.log("RESULT", result);
+        });
+    };
     HomeRoute.prototype.productClicked = function (product) {
         this.router.navigate(['products', product.id]);
+    };
+    HomeRoute.prototype.productDialog = function (product) {
+        if (product === void 0) { product = null; }
+        var dialogRef = this.dialog.open(product_dialog_1.ProductDialog, {
+            width: '80vw',
+            data: product
+        });
+        return dialogRef.afterClosed();
     };
     HomeRoute = __decorate([
         core_1.Component({

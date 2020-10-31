@@ -7,4 +7,5 @@ export const productsUrl = baseUrl + '/products';
 export const stocksUrl = baseUrl + '/stocks';
 export const warehousesUrl = baseUrl + '/warehouses';
 
-export const productColumns = ['image','name', 'sku', 'barcode', 'price', 'enabled', 'actions'];
+export const productColumns = ['image', 'name', 'sku', 'barcode', 'price', 'enabled', 'actions'];
+export const stockColumns = ['name','city','quantity','status','actions'];

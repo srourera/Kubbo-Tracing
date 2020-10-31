@@ -21,6 +21,7 @@
     --transparent-shadow-dark: #00000080;
     
     --background: linear-gradient(140deg, rgb(115, 83, 244) 0%, rgb(255, 102, 173) 100%);
+    --box-shadow-light: 2px 2px 15px var(--transparent-shadow-light);
     --box-shadow-medium: 2px 2px 15px var(--transparent-shadow-medium);
     --box-shadow-dark: 2px 2px 15px var(--transparent-shadow-dark);
 
@@ -39,12 +40,13 @@ html,body {
     width: 100%;
     padding: 0;
     overflow: hidden;
+    top:0 !important;
 }
 body {    
     background: var(--background);
     background-size: cover;
     background-repeat: no-repeat;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 strong {
@@ -59,6 +61,12 @@ strong {
 
 
 /* Fix styles*/
+mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type {
+    padding-left: 24px !important;
+}
+mat-cell:last-of-type, mat-header-cell:last-of-type, mat-footer-cell:last-of-type {
+    padding-right: 24px !important;
+}
 .mat-sort-header-container {
     position: relative;
 }

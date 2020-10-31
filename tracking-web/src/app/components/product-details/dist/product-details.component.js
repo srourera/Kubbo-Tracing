@@ -11,6 +11,7 @@ var core_1 = require("@angular/core");
 var ProductDetailsComponent = /** @class */ (function () {
     function ProductDetailsComponent() {
         this.hidden = false;
+        this.stocks = [];
     }
     ProductDetailsComponent.prototype.ngOnInit = function () {
     };

@@ -1,11 +1,13 @@
-<div id="product-details" class="product" [ngClass]="{'hidden': hidden}" *ngIf="!!product">
-    <div class="product-img"><img [src]="product.image"></div>
-    <div class="product-data">
-        <p class="name"><strong>{{product.name}}</strong></p>
-        <p><span>SKU:</span> {{product.sku}}</p>
-        <p><span>BARCODE:</span> {{product.barcode}}</p>
-        <mat-slide-toggle labelPosition="before" [checked]="product.enabled"><span>ENABLED: </span></mat-slide-toggle> 
-        <p class="price">{{product.price | price}}</p>
-        {{stocks | json}}
+<div id="product-details" [ngClass]="{'hidden': hidden}" *ngIf="!!product">
+    <div class="product">
+        <div class="product-img"><img [src]="product.image"></div>
+        <div class="product-data">
+            <p class="name"><strong>{{product.name}}</strong></p>
+            <p><span>SKU:</span> {{product.sku}}</p>
+            <p><span>BARCODE:</span> {{product.barcode}}</p>
+            <mat-slide-toggle labelPosition="before" [checked]="product.enabled"><span>ENABLED: </span></mat-slide-toggle> 
+            <p class="price">{{product.price | price}}</p>
+        </div>
     </div>
+    <stocks-table [stocks]="stocks"></stocks-table>
 </div>

@@ -1,0 +1,35 @@
+h1 {
+    text-align: center;
+    margin: 20px 0;
+}
+
+mat-form-field {
+    display: block;
+    margin-bottom: 15px;
+}
+
+mat-dialog-actions {
+    float: right;
+    margin-bottom: 0;
+}
+mat-dialog-actions button {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 5px 0;
+    width: 100px;
+}
+mat-dialog-actions button:first-child {
+    margin-right: 15px;
+}
+mat-dialog-actions button:last-child {
+    background-color: var(--dark-color);
+    color: white;
+    border-color: var(--dark-color);
+}
+
+mat-label.enabled-label {
+    font-size: 12px;
+    color: rgba(0,0,0,.54);
+    display: block;
+    margin-bottom: 5px;
+}

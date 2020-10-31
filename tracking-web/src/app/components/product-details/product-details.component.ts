@@ -11,7 +11,7 @@ export class ProductDetailsComponent implements OnInit {
 
   @Input() hidden: boolean = false;
   @Input() product: Product;
-  @Input() stocks: Stock[];
+  @Input() stocks: Stock[] = [];
 
   constructor() { }
 

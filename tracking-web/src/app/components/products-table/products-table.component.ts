@@ -15,6 +15,9 @@ export class ProductsTableComponent implements OnChanges {
   @Input() products: Product[] = [];
   @Input() hidden: boolean = false;
   @Output() productClicked: EventEmitter<Product> = new EventEmitter();
+  @Output() editProductClicked: EventEmitter<Product> = new EventEmitter();
+  @Output() enableProductClicked: EventEmitter<Product> = new EventEmitter();
+  @Output() deleteProductClicked: EventEmitter<Product> = new EventEmitter();
 
   productsDataSource: MatTableDataSource<Product>;
 
@@ -28,17 +31,20 @@ export class ProductsTableComponent implements OnChanges {
   seeProduct(product: Product) {
     this.productClicked.emit(product);
   }
+  
   enableProduct(event, product: Product) {
     event.stopPropagation();
-    console.log("ENABLE",product)
+    this.enableProductClicked.emit(product)
   }
+
   editProduct(event,product: Product) {
     event.stopPropagation();
-    console.log("EDIT",product)
+    this.editProductClicked.emit(product)    
   }
+
   deleteProduct(event,product: Product) {
     event.stopPropagation();
-    console.log("DELETE",product)
+    this.deleteProductClicked.emit(product)
   }
 
   sortData(event) {
