@@ -10,7 +10,8 @@ exports.HomeRoute = void 0;
 var core_1 = require("@angular/core");
 var product_dialog_1 = require("../../components/product-dialog/product-dialog");
 var HomeRoute = /** @class */ (function () {
-    function HomeRoute(productsService, dialog, router, route) {
+    function HomeRoute(errorBar, productsService, dialog, router, route) {
+        this.errorBar = errorBar;
         this.productsService = productsService;
         this.dialog = dialog;
         this.router = router;
@@ -40,7 +41,9 @@ var HomeRoute = /** @class */ (function () {
                 _this.router.navigate(['']);
             _this.currentProduct = response;
             _this.showCurrentProduct = true;
-        }, function () {
+        }, function (_a) {
+            var error = _a.error;
+            _this.openErrorBar('loading Product', error);
             _this.showCurrentProduct = false;
             _this.router.navigate(['']);
         });
@@ -49,7 +52,9 @@ var HomeRoute = /** @class */ (function () {
         var _this = this;
         this.productsService.getProducts().subscribe(function (response) {
             _this.products = response;
-        }, function () {
+        }, function (_a) {
+            var error = _a.error;
+            _this.openErrorBar('loading Products', error);
             _this.products = [];
         });
     };
@@ -67,7 +72,15 @@ var HomeRoute = /** @class */ (function () {
                         _this.router.navigate(['products', product.id]);
                         dialogRef.componentInstance.closeDialog();
                         _this.loading = false;
+                    }, function (_a) {
+                        var error = _a.error;
+                        _this.openErrorBar('creating Product', error);
+                        _this.loading = false;
                     });
+                }, function (_a) {
+                    var error = _a.error;
+                    _this.openErrorBar('uploading Image', error);
+                    _this.loading = false;
                 });
             }
             else {
@@ -75,6 +88,10 @@ var HomeRoute = /** @class */ (function () {
                 _this.productsService.create(product).subscribe(function (product) {
                     _this.router.navigate(['products', product.id]);
                     dialogRef.componentInstance.closeDialog();
+                    _this.loading = false;
+                }, function (_a) {
+                    var error = _a.error;
+                    _this.openErrorBar('creating Product', error);
                     _this.loading = false;
                 });
             }
@@ -96,7 +113,15 @@ var HomeRoute = /** @class */ (function () {
                         _this.router.navigate(['products', product.id]);
                         dialogRef.componentInstance.closeDialog();
                         _this.loading = false;
+                    }, function (_a) {
+                        var error = _a.error;
+                        _this.openErrorBar('editing Product', error);
+                        _this.loading = false;
                     });
+                }, function (_a) {
+                    var error = _a.error;
+                    _this.openErrorBar('uploading Image', error);
+                    _this.loading = false;
                 });
             }
             else {
@@ -105,15 +130,28 @@ var HomeRoute = /** @class */ (function () {
                     _this.router.navigate(['products', product.id]);
                     dialogRef.componentInstance.closeDialog();
                     _this.loading = false;
+                }, function (_a) {
+                    var error = _a.error;
+                    _this.openErrorBar('loading Product', error);
+                    _this.loading = false;
                 });
             }
         });
     };
     HomeRoute.prototype.enableProduct = function (product) {
+        var _this = this;
         if (product.enabled)
-            this.productsService.activate(product.id).subscribe();
+            this.productsService.activate(product.id).subscribe(function () {
+            }, function (_a) {
+                var error = _a.error;
+                _this.openErrorBar('activating Product', error);
+            });
         else
-            this.productsService.deactivate(product.id).subscribe();
+            this.productsService.deactivate(product.id).subscribe(function () {
+            }, function (_a) {
+                var error = _a.error;
+                _this.openErrorBar('deactivating Product', error);
+            });
     };
     HomeRoute.prototype.deleteProduct = function (product) {
         var _this = this;
@@ -125,11 +163,24 @@ var HomeRoute = /** @class */ (function () {
                     _this.router.navigate(['']);
                 else
                     _this.loadProducts();
+            }, function (_a) {
+                var error = _a.error;
+                _this.openErrorBar('deleting Product', error);
+                _this.loading = false;
             });
         }
     };
     HomeRoute.prototype.productClicked = function (product) {
         this.router.navigate(['products', product.id]);
+    };
+    HomeRoute.prototype.openErrorBar = function (action, error) {
+        var message = error.status === 500 || error.status === 404 ?
+            "Something went wrong " + action :
+            error.error + ": " + error.message;
+        this.errorBar.open(message, '', {
+            duration: 2000,
+            panelClass: ['error']
+        });
     };
     HomeRoute.prototype.productDialog = function (product) {
         if (product === void 0) { product = {}; }

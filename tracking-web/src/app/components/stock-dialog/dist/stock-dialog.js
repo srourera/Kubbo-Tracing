@@ -14,7 +14,8 @@ var core_1 = require("@angular/core");
 var dialog_1 = require("@angular/material/dialog");
 var Properties_1 = require("../../configuration/Properties");
 var StockDialog = /** @class */ (function () {
-    function StockDialog(warehousesService, dialogRef, stock) {
+    function StockDialog(errorBar, warehousesService, dialogRef, stock) {
+        this.errorBar = errorBar;
         this.warehousesService = warehousesService;
         this.dialogRef = dialogRef;
         this.stock = stock;
@@ -26,6 +27,9 @@ var StockDialog = /** @class */ (function () {
         var _this = this;
         this.warehousesService.getWarehouses().subscribe(function (warehouses) {
             _this.warehouses = warehouses;
+        }, function (_a) {
+            var error = _a.error;
+            _this.openErrorBar('loading Warehouses', error);
         });
     };
     StockDialog.prototype.onNoClick = function () {
@@ -37,7 +41,14 @@ var StockDialog = /** @class */ (function () {
     StockDialog.prototype.closeDialog = function () {
         this.dialogRef.close();
     };
-    StockDialog.prototype.setErrors = function () {
+    StockDialog.prototype.openErrorBar = function (action, error) {
+        var message = error.status === 500 || error.status === 404 ?
+            "Something went wrong " + action :
+            error.error + ": " + error.message;
+        this.errorBar.open(message, '', {
+            duration: 2000,
+            panelClass: ['error']
+        });
     };
     __decorate([
         core_1.Output()
@@ -48,7 +59,7 @@ var StockDialog = /** @class */ (function () {
             templateUrl: './stock-dialog.html',
             styleUrls: ['./stock-dialog.css']
         }),
-        __param(2, core_1.Inject(dialog_1.MAT_DIALOG_DATA))
+        __param(3, core_1.Inject(dialog_1.MAT_DIALOG_DATA))
     ], StockDialog);
     return StockDialog;
 }());

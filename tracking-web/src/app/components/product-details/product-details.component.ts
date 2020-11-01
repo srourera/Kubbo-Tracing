@@ -4,6 +4,8 @@ import { Stock } from '../../models/stock.model';
 import { StocksService } from '../../services/stocks.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { StockDialog } from '../stock-dialog/stock-dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Exception, HttpException } from '../../models/exception.model';
 
 @Component({
   selector: 'product-details',
@@ -22,6 +24,7 @@ export class ProductDetailsComponent implements OnChanges {
   @Output() delete: EventEmitter<Product> = new EventEmitter();
 
   constructor(
+    private errorBar: MatSnackBar,
     private stocksService: StocksService,
     public dialog: MatDialog
   ) { }
@@ -37,7 +40,10 @@ export class ProductDetailsComponent implements OnChanges {
         (response: Stock[]) => {        
           if(!response) return;
           this.stocks = response;        
-        },()=>{}
+        },({error}: HttpException)=>{
+          this.openErrorBar('loading Stock',error);
+          this.stocks =  [];
+        }
       );
     }
   }
@@ -66,10 +72,12 @@ export class ProductDetailsComponent implements OnChanges {
         if(!stock) dialogRef.componentInstance.closeDialog();
         this.loading = true;
 
-        this.stocksService.create(stock).subscribe((stock: Stock) => {
+        this.stocksService.create(stock).subscribe(() => {
           this.loadStock();
           dialogRef.componentInstance.closeDialog();
           this.loading = false;
+        },({error}: HttpException)=>{
+          this.openErrorBar('creating Stock',error);
         });
       });
     }    
@@ -85,10 +93,12 @@ export class ProductDetailsComponent implements OnChanges {
       if(!stock) dialogRef.componentInstance.closeDialog();
       this.loading = true;
 
-      this.stocksService.edit(stock).subscribe((stock: Stock) => {
+      this.stocksService.edit(stock).subscribe(() => {
         this.loadStock();
         dialogRef.componentInstance.closeDialog();
         this.loading = false;
+      },({error}: HttpException)=>{
+        this.openErrorBar('editing Stock',error);
       });
     });
   }
@@ -99,8 +109,22 @@ export class ProductDetailsComponent implements OnChanges {
       this.stocksService.delete(stock).subscribe(()=>{
         this.loadStock();
         this.loading = false;
+      },({error}: HttpException)=>{
+        this.openErrorBar('deleting Stock',error);
       })
     }
+  }
+
+  private openErrorBar(action: string, error: Exception) {
+
+    let message = error.status === 500 || error.status === 404 ?
+      `Something went wrong ${action}` :
+      `${error.error}: ${error.message}`;
+
+    this.errorBar.open(message, '', {
+      duration: 2000,
+      panelClass: ['error']
+    });
   }
 
   private stockDialog(stock: Stock): MatDialogRef<StockDialog, any> {

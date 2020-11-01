@@ -37,8 +37,6 @@ var ProductDialog = /** @class */ (function () {
     ProductDialog.prototype.closeDialog = function () {
         this.dialogRef.close();
     };
-    ProductDialog.prototype.setErrors = function () {
-    };
     ProductDialog.prototype.imageClick = function () {
         document.getElementById("image-input").click();
     };

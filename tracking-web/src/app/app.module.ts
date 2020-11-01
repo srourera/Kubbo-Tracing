@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -54,6 +55,7 @@ import { LoadingComponent } from './components/loading/loading.component';
     MatInputModule,
     MatSelectModule,
     MatProgressSpinnerModule,
+    MatSnackBarModule,
     FormsModule
   ],
   providers: [ImagePipe],

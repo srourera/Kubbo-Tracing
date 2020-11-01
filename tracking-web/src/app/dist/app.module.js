@@ -20,6 +20,7 @@ var form_field_1 = require("@angular/material/form-field");
 var input_1 = require("@angular/material/input");
 var select_1 = require("@angular/material/select");
 var progress_spinner_1 = require("@angular/material/progress-spinner");
+var snack_bar_1 = require("@angular/material/snack-bar");
 var forms_1 = require("@angular/forms");
 var app_routing_module_1 = require("./app-routing.module");
 var app_component_1 = require("./app.component");
@@ -65,6 +66,7 @@ var AppModule = /** @class */ (function () {
                 input_1.MatInputModule,
                 select_1.MatSelectModule,
                 progress_spinner_1.MatProgressSpinnerModule,
+                snack_bar_1.MatSnackBarModule,
                 forms_1.FormsModule
             ],
             providers: [image_pipe_1.ImagePipe],

@@ -41,9 +41,6 @@ export class ProductDialog implements OnInit{
   closeDialog(){
     this.dialogRef.close();
   }
-  setErrors(){
-
-  }
 
   imageClick() {
     document.getElementById("image-input").click();

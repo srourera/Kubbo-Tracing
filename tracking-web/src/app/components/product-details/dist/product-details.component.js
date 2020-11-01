@@ -10,7 +10,8 @@ exports.ProductDetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var stock_dialog_1 = require("../stock-dialog/stock-dialog");
 var ProductDetailsComponent = /** @class */ (function () {
-    function ProductDetailsComponent(stocksService, dialog) {
+    function ProductDetailsComponent(errorBar, stocksService, dialog) {
+        this.errorBar = errorBar;
         this.stocksService = stocksService;
         this.dialog = dialog;
         this.loading = false;
@@ -31,7 +32,11 @@ var ProductDetailsComponent = /** @class */ (function () {
                 if (!response)
                     return;
                 _this.stocks = response;
-            }, function () { });
+            }, function (_a) {
+                var error = _a.error;
+                _this.openErrorBar('loading Stock', error);
+                _this.stocks = [];
+            });
         }
     };
     ProductDetailsComponent.prototype.editProduct = function (product) {
@@ -55,10 +60,13 @@ var ProductDetailsComponent = /** @class */ (function () {
                 if (!stock)
                     dialogRef_1.componentInstance.closeDialog();
                 _this.loading = true;
-                _this.stocksService.create(stock).subscribe(function (stock) {
+                _this.stocksService.create(stock).subscribe(function () {
                     _this.loadStock();
                     dialogRef_1.componentInstance.closeDialog();
                     _this.loading = false;
+                }, function (_a) {
+                    var error = _a.error;
+                    _this.openErrorBar('creating Stock', error);
                 });
             });
         }
@@ -72,10 +80,13 @@ var ProductDetailsComponent = /** @class */ (function () {
             if (!stock)
                 dialogRef.componentInstance.closeDialog();
             _this.loading = true;
-            _this.stocksService.edit(stock).subscribe(function (stock) {
+            _this.stocksService.edit(stock).subscribe(function () {
                 _this.loadStock();
                 dialogRef.componentInstance.closeDialog();
                 _this.loading = false;
+            }, function (_a) {
+                var error = _a.error;
+                _this.openErrorBar('editing Stock', error);
             });
         });
     };
@@ -86,8 +97,20 @@ var ProductDetailsComponent = /** @class */ (function () {
             this.stocksService["delete"](stock).subscribe(function () {
                 _this.loadStock();
                 _this.loading = false;
+            }, function (_a) {
+                var error = _a.error;
+                _this.openErrorBar('deleting Stock', error);
             });
         }
+    };
+    ProductDetailsComponent.prototype.openErrorBar = function (action, error) {
+        var message = error.status === 500 || error.status === 404 ?
+            "Something went wrong " + action :
+            error.error + ": " + error.message;
+        this.errorBar.open(message, '', {
+            duration: 2000,
+            panelClass: ['error']
+        });
     };
     ProductDetailsComponent.prototype.stockDialog = function (stock) {
         return this.dialog.open(stock_dialog_1.StockDialog, {
