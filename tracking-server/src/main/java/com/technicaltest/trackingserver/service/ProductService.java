@@ -1,12 +1,19 @@
 package com.technicaltest.trackingserver.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.technicaltest.trackingserver.clients.ProductsClient;
 import com.technicaltest.trackingserver.clients.WarehousesClient;
+import com.technicaltest.trackingserver.dto.Exception;
 import com.technicaltest.trackingserver.dto.ProductData;
 import com.technicaltest.trackingserver.dto.WarehouseData;
+import com.technicaltest.trackingserver.utils.Utils;
+import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -24,7 +31,13 @@ public class ProductService {
     }
 
     public ProductData getProductById(Long productId) {
-        return productsClient.getProductById(productId).getBody();
+        ProductData productData = null;
+        try {
+            productData = productsClient.getProductById(productId).getBody();
+        } catch (FeignException exception) {
+            Utils.transformException(exception);
+        }
+        return productData;
     }
 
     public ProductData create(ProductData productData) {
@@ -32,24 +45,48 @@ public class ProductService {
     }
 
     public ProductData edit(Long productId, ProductData productData) {
-        return productsClient.edit(productId,productData).getBody();
+        ProductData productEdited = null;
+        try {
+            productEdited = productsClient.edit(productId,productData).getBody();
+        } catch (FeignException exception) {
+            Utils.transformException(exception);
+        }
+        return productEdited;
     }
 
     public void activate(Long productId) {
-        productsClient.activateProduct(productId);
+        try {
+            productsClient.activateProduct(productId);
+        } catch (FeignException exception) {
+            Utils.transformException(exception);
+        }
     }
 
     public void deactivate(Long productId) {
-        productsClient.deactivateProduct(productId);
+        try {
+            productsClient.deactivateProduct(productId);
+        } catch (FeignException exception) {
+            Utils.transformException(exception);
+        }
     }
 
     public void delete(Long productId) {
-        productsClient.deleteProduct(productId);
-        stockService.deleteByProductId(productId);
+        try {
+            productsClient.deleteProduct(productId);
+            stockService.deleteByProductId(productId);
+        } catch (FeignException exception) {
+            Utils.transformException(exception);
+        }
     }
 
     public Long uploadImage(MultipartFile file) {
-        return productsClient.uploadImage(file).getBody();
+        Long id = null;
+        try {
+            id = productsClient.uploadImage(file).getBody();
+        } catch (FeignException exception) {
+            Utils.transformException(exception);
+        }
+        return id;
     }
 
     public byte[] getImage(Long imageId) {

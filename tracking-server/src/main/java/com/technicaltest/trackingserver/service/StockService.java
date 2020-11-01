@@ -51,6 +51,9 @@ public class StockService {
     }
 
     public void deleteByProductId(Long productId) {
-        stocksClient.deleteStockByProductId(productId);
+        try{
+            stocksClient.deleteStockByProductId(productId);
+        } catch (Exception ignored) {
+        }
     }
 }
