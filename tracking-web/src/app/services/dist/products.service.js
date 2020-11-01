@@ -31,6 +31,9 @@ var ProductsService = /** @class */ (function () {
     ProductsService.prototype.deactivate = function (productId) {
         return this.http.put(Properties_1.productsUrl + "/deactivate/" + productId, {});
     };
+    ProductsService.prototype["delete"] = function (product) {
+        return this.http["delete"](Properties_1.productsUrl + "/" + product.id);
+    };
     ProductsService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

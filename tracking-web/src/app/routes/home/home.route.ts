@@ -43,7 +43,7 @@ export class HomeRoute implements OnInit {
 
     this.productsService.getProductById(productId).subscribe(
       (response: Product) => {        
-        if(!response) this.router.navigate(['']);
+        if(!response || !response.id) this.router.navigate(['']);
         this.currentProduct = response;
         this.showCurrentProduct = true;        
       },()=>{        
@@ -88,6 +88,15 @@ export class HomeRoute implements OnInit {
   enableProduct(product: Product) {
     if(product.enabled) this.productsService.activate(product.id).subscribe();
     else this.productsService.deactivate(product.id).subscribe();
+  }
+
+  deleteProduct(product: Product) {
+    if(confirm(`Are you sure to delete ${product.name}?`)) {
+      this.productsService.delete(product).subscribe(()=>{
+        if(this.showCurrentProduct) this.router.navigate(['']);
+        else this.loadProducts();
+      });
+    }
   }
 
   productClicked(product: Product) {

@@ -26,12 +26,11 @@ export class ProductDetailsComponent implements OnChanges {
   ) { }
 
   ngOnChanges() {
+    this.stocks = [];
     this.loadStock();
   }
 
   private loadStock(){
-    this.stocks = [];
-
     if(!!this.product && !!this.product.id){
       this.stocksService.getStockByProductId(this.product.id).subscribe(
         (response: Stock[]) => {        
@@ -81,9 +80,11 @@ export class ProductDetailsComponent implements OnChanges {
   }
 
   deleteStock(stock: Stock) {
-    this.stocksService.delete(stock).subscribe(()=>{
-      this.loadStock();
-    })
+    if(confirm(`Are you sure to delete stock of ${stock.warehouse.name}?`)) {
+      this.stocksService.delete(stock).subscribe(()=>{
+        this.loadStock();
+      })
+    }
   }
 
   private stockDialog(stock: Stock): Observable<Stock> {

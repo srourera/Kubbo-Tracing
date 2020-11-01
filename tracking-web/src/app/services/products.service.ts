@@ -33,4 +33,8 @@ export class ProductsService {
   deactivate(productId: number) {
     return this.http.put(`${productsUrl}/deactivate/${productId}`,{});
   }
+
+  delete(product: Product) {
+    return this.http.delete(`${productsUrl}/${product.id}`);
+  }
 }

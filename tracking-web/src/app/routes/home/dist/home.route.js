@@ -35,7 +35,7 @@ var HomeRoute = /** @class */ (function () {
         var _this = this;
         this.currentProduct = {};
         this.productsService.getProductById(productId).subscribe(function (response) {
-            if (!response)
+            if (!response || !response.id)
                 _this.router.navigate(['']);
             _this.currentProduct = response;
             _this.showCurrentProduct = true;
@@ -79,6 +79,17 @@ var HomeRoute = /** @class */ (function () {
             this.productsService.activate(product.id).subscribe();
         else
             this.productsService.deactivate(product.id).subscribe();
+    };
+    HomeRoute.prototype.deleteProduct = function (product) {
+        var _this = this;
+        if (confirm("Are you sure to delete " + product.name + "?")) {
+            this.productsService["delete"](product).subscribe(function () {
+                if (_this.showCurrentProduct)
+                    _this.router.navigate(['']);
+                else
+                    _this.loadProducts();
+            });
+        }
     };
     HomeRoute.prototype.productClicked = function (product) {
         this.router.navigate(['products', product.id]);

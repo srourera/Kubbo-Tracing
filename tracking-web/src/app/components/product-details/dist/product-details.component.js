@@ -20,11 +20,11 @@ var ProductDetailsComponent = /** @class */ (function () {
         this["delete"] = new core_1.EventEmitter();
     }
     ProductDetailsComponent.prototype.ngOnChanges = function () {
+        this.stocks = [];
         this.loadStock();
     };
     ProductDetailsComponent.prototype.loadStock = function () {
         var _this = this;
-        this.stocks = [];
         if (!!this.product && !!this.product.id) {
             this.stocksService.getStockByProductId(this.product.id).subscribe(function (response) {
                 if (!response)
@@ -72,9 +72,11 @@ var ProductDetailsComponent = /** @class */ (function () {
     };
     ProductDetailsComponent.prototype.deleteStock = function (stock) {
         var _this = this;
-        this.stocksService["delete"](stock).subscribe(function () {
-            _this.loadStock();
-        });
+        if (confirm("Are you sure to delete stock of " + stock.warehouse.name + "?")) {
+            this.stocksService["delete"](stock).subscribe(function () {
+                _this.loadStock();
+            });
+        }
     };
     ProductDetailsComponent.prototype.stockDialog = function (stock) {
         var dialogRef = this.dialog.open(stock_dialog_1.StockDialog, {
