@@ -15,6 +15,7 @@ export class StocksTableComponent implements OnChanges {
   @Input() stocks: Stock[] = [];
   @Output() create: EventEmitter<any> = new EventEmitter();
   @Output() edit: EventEmitter<Stock> = new EventEmitter();
+  @Output() delete: EventEmitter<Stock> = new EventEmitter();
 
   stockDataSource: MatTableDataSource<Stock>;
 
@@ -32,14 +33,24 @@ export class StocksTableComponent implements OnChanges {
     this.edit.emit(stock);    
   }
 
+  deleteStock(stock: Stock) {
+    this.delete.emit(stock);    
+  }
+
   sortData(event) {
     this.sort(event.active, event.direction === "asc");
   }
 
-  private sort(key, asc = false) {
+  private sort(key, asc = false) {    
     this.stockDataSource = new MatTableDataSource<Stock>(this.stocks.sort((a, b) =>{
-      if(a[key] < b[key]) return asc ? -1 : 1;
-      else if(a[key] > b[key]) return asc ? 1 : -1;
+      let first = a as any;
+      let second = b as any;
+      if(key === "name" || key === "city"){
+        first = a.warehouse;
+        second = b.warehouse;      
+      }
+      if(first[key] < second[key]) return asc ? -1 : 1;
+      else if(first[key] > second[key]) return asc ? 1 : -1;
       else return 0;
     }));
   }

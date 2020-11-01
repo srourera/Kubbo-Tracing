@@ -68,6 +68,7 @@ export class ProductDetailsComponent implements OnChanges {
       });
     }    
   }
+
   editStock(stock: Stock){
     const s = Object.assign({},stock);
     s.warehouseId = !!s.warehouse ? s.warehouse.id : null;
@@ -77,6 +78,12 @@ export class ProductDetailsComponent implements OnChanges {
         this.loadStock();
       });
     });
+  }
+
+  deleteStock(stock: Stock) {
+    this.stocksService.delete(stock).subscribe(()=>{
+      this.loadStock();
+    })
   }
 
   private stockDialog(stock: Stock): Observable<Stock> {

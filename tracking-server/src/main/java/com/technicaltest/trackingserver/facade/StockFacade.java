@@ -26,4 +26,12 @@ public class StockFacade {
     public StockData edit(Long stockId, StockData stockData) {
         return stockService.edit(stockId, stockData);
     }
+
+    public void delete(Long stockId) {
+        stockService.delete(stockId);
+    }
+
+    public void deleteByProductId(Long productId) {
+        stockService.deleteByProductId(productId);
+    }
 }

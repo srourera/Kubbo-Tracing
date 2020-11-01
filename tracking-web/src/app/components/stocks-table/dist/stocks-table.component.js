@@ -16,6 +16,7 @@ var StocksTableComponent = /** @class */ (function () {
         this.stocks = [];
         this.create = new core_1.EventEmitter();
         this.edit = new core_1.EventEmitter();
+        this["delete"] = new core_1.EventEmitter();
     }
     StocksTableComponent.prototype.ngOnChanges = function () {
         this.stockDataSource = new table_1.MatTableDataSource(this.stocks);
@@ -26,15 +27,24 @@ var StocksTableComponent = /** @class */ (function () {
     StocksTableComponent.prototype.editStock = function (stock) {
         this.edit.emit(stock);
     };
+    StocksTableComponent.prototype.deleteStock = function (stock) {
+        this["delete"].emit(stock);
+    };
     StocksTableComponent.prototype.sortData = function (event) {
         this.sort(event.active, event.direction === "asc");
     };
     StocksTableComponent.prototype.sort = function (key, asc) {
         if (asc === void 0) { asc = false; }
         this.stockDataSource = new table_1.MatTableDataSource(this.stocks.sort(function (a, b) {
-            if (a[key] < b[key])
+            var first = a;
+            var second = b;
+            if (key === "name" || key === "city") {
+                first = a.warehouse;
+                second = b.warehouse;
+            }
+            if (first[key] < second[key])
                 return asc ? -1 : 1;
-            else if (a[key] > b[key])
+            else if (first[key] > second[key])
                 return asc ? 1 : -1;
             else
                 return 0;
@@ -49,6 +59,9 @@ var StocksTableComponent = /** @class */ (function () {
     __decorate([
         core_1.Output()
     ], StocksTableComponent.prototype, "edit");
+    __decorate([
+        core_1.Output()
+    ], StocksTableComponent.prototype, "delete");
     StocksTableComponent = __decorate([
         core_1.Component({
             selector: 'stocks-table',

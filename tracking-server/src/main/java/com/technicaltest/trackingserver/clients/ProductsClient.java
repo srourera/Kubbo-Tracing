@@ -42,4 +42,9 @@ public interface ProductsClient {
             value = "/deactivate/{productId}"
     )
     ResponseEntity deactivateProduct(@PathVariable Long productId);
+
+    @DeleteMapping(
+            value = "/{productId}"
+    )
+    ResponseEntity deleteProduct(@PathVariable Long productId);
 }

@@ -45,4 +45,13 @@ public class StocksController {
     public ResponseEntity<StockData> editStock(@PathVariable Long stockId, @RequestBody StockData stock) throws Exception {
         return new ResponseEntity<>(stockFacade.edit(stockId, stock),HttpStatus.CREATED);
     }
+
+    @DeleteMapping(
+            value = "/{stockId}"
+    )
+    public ResponseEntity deleteStock(@PathVariable Long stockId) {
+        stockFacade.delete(stockId);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
 }

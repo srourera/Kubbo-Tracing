@@ -28,4 +28,14 @@ public interface StocksClient {
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
     ResponseEntity<StockData> editStock(@PathVariable Long stockId, @RequestBody StockData stock);
+
+    @DeleteMapping(
+            value = "/{stockId}"
+    )
+    ResponseEntity deleteStock(@PathVariable Long stockId);
+
+    @DeleteMapping(
+            value = "/product/{productId}"
+    )
+    ResponseEntity deleteStockByProductId(@PathVariable Long productId);
 }

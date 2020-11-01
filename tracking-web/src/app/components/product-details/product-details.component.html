@@ -10,5 +10,5 @@
             <p class="price">{{product.price | price}}</p>
         </div>
     </div>
-    <stocks-table [stocks]="stocks" (create)="addStock()" (edit)="editStock($event)"></stocks-table>
+    <stocks-table [stocks]="stocks" (create)="addStock()" (edit)="editStock($event)" (delete)="deleteStock($event)"></stocks-table>
 </div>

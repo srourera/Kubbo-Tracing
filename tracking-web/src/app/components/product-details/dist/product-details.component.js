@@ -70,6 +70,12 @@ var ProductDetailsComponent = /** @class */ (function () {
             });
         });
     };
+    ProductDetailsComponent.prototype.deleteStock = function (stock) {
+        var _this = this;
+        this.stocksService["delete"](stock).subscribe(function () {
+            _this.loadStock();
+        });
+    };
     ProductDetailsComponent.prototype.stockDialog = function (stock) {
         var dialogRef = this.dialog.open(stock_dialog_1.StockDialog, {
             width: '80vw',

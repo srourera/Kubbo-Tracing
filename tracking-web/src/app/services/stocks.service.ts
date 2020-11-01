@@ -22,4 +22,8 @@ export class StocksService {
   edit(stock: Stock) {
     return this.http.put(`${stocksUrl}/${stock.id}`,stock);
   }
+
+  delete(stock: Stock) {
+    return this.http.delete(`${stocksUrl}/${stock.id}`);
+  }
 }

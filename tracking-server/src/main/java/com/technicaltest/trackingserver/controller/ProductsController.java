@@ -64,4 +64,12 @@ public class ProductsController {
         productFacade.deactivate(productId);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @DeleteMapping(
+            value = "/{productId}"
+    )
+    public ResponseEntity deleteProduct(@PathVariable Long productId) {
+        productFacade.delete(productId);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 }

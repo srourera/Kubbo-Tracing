@@ -36,4 +36,8 @@ public class ProductFacade {
     public void deactivate(Long productId) {
         productService.deactivate(productId);
     }
+
+    public void delete(Long productId) {
+        productService.delete(productId);
+    }
 }

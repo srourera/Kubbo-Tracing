@@ -15,6 +15,9 @@ public class ProductService {
     @Autowired
     private ProductsClient productsClient;
 
+    @Autowired
+    private StockService stockService;
+
     public List<ProductData> getProducts() {
         return productsClient.getProducts().getBody();
     }
@@ -38,4 +41,10 @@ public class ProductService {
     public void deactivate(Long productId) {
         productsClient.deactivateProduct(productId);
     }
+
+    public void delete(Long productId) {
+        productsClient.deleteProduct(productId);
+        stockService.deleteByProductId(productId);
+    }
+
 }

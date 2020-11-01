@@ -22,6 +22,9 @@ var StocksService = /** @class */ (function () {
     StocksService.prototype.edit = function (stock) {
         return this.http.put(Properties_1.stocksUrl + "/" + stock.id, stock);
     };
+    StocksService.prototype["delete"] = function (stock) {
+        return this.http["delete"](Properties_1.stocksUrl + "/" + stock.id);
+    };
     StocksService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

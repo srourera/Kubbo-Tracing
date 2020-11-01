@@ -1,7 +1,6 @@
 package com.technicaltest.trackingserver.service;
 
 import com.technicaltest.trackingserver.clients.StocksClient;
-import com.technicaltest.trackingserver.dto.ProductData;
 import com.technicaltest.trackingserver.dto.StockData;
 import com.technicaltest.trackingserver.dto.StockWarehouseData;
 import com.technicaltest.trackingserver.dto.WarehouseData;
@@ -45,5 +44,13 @@ public class StockService {
 
     public StockData edit(Long stockId, StockData stockData) {
         return stocksClient.editStock(stockId,stockData).getBody();
+    }
+
+    public void delete(Long stockId) {
+        stocksClient.deleteStock(stockId);
+    }
+
+    public void deleteByProductId(Long productId) {
+        stocksClient.deleteStockByProductId(productId);
     }
 }
