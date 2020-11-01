@@ -19,6 +19,7 @@ var dialog_1 = require("@angular/material/dialog");
 var form_field_1 = require("@angular/material/form-field");
 var input_1 = require("@angular/material/input");
 var select_1 = require("@angular/material/select");
+var progress_spinner_1 = require("@angular/material/progress-spinner");
 var forms_1 = require("@angular/forms");
 var app_routing_module_1 = require("./app-routing.module");
 var app_component_1 = require("./app.component");
@@ -30,6 +31,8 @@ var product_details_component_1 = require("./components/product-details/product-
 var stocks_table_component_1 = require("./components/stocks-table/stocks-table.component");
 var product_dialog_1 = require("./components/product-dialog/product-dialog");
 var stock_dialog_1 = require("./components/stock-dialog/stock-dialog");
+var image_pipe_1 = require("./pipes/image.pipe");
+var loading_component_1 = require("./components/loading/loading.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -44,7 +47,9 @@ var AppModule = /** @class */ (function () {
                 product_details_component_1.ProductDetailsComponent,
                 stocks_table_component_1.StocksTableComponent,
                 product_dialog_1.ProductDialog,
-                stock_dialog_1.StockDialog
+                stock_dialog_1.StockDialog,
+                image_pipe_1.ImagePipe,
+                loading_component_1.LoadingComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -59,9 +64,10 @@ var AppModule = /** @class */ (function () {
                 form_field_1.MatFormFieldModule,
                 input_1.MatInputModule,
                 select_1.MatSelectModule,
+                progress_spinner_1.MatProgressSpinnerModule,
                 forms_1.FormsModule
             ],
-            providers: [],
+            providers: [image_pipe_1.ImagePipe],
             bootstrap: [app_component_1.AppComponent]
         })
     ], AppModule);

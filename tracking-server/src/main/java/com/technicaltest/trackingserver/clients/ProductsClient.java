@@ -2,14 +2,13 @@ package com.technicaltest.trackingserver.clients;
 
 import com.technicaltest.trackingserver.dto.ProductData;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 
 @FeignClient(name = "product-service")
 public interface ProductsClient {
@@ -47,4 +46,15 @@ public interface ProductsClient {
             value = "/{productId}"
     )
     ResponseEntity deleteProduct(@PathVariable Long productId);
+
+    @PostMapping(
+            value = "/image",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+    )
+    ResponseEntity<Long> uploadImage(@RequestPart("imageFile") MultipartFile file);
+
+    @GetMapping(
+            value = "/image/{imageId}"
+    )
+    ResponseEntity<byte[]> getImage(@PathVariable Long imageId);
 }

@@ -4,6 +4,7 @@ export interface Product {
     barcode: string;
     price: string;
     sku: string;
-    image: string;
+    image: number;
     enabled: boolean;
+    imageFile: File;
 }

@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -71,5 +73,20 @@ public class ProductsController {
     public ResponseEntity deleteProduct(@PathVariable Long productId) {
         productFacade.delete(productId);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PostMapping(
+            value = "/image",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+    )
+    ResponseEntity<Long> uploadImage(@RequestPart("imageFile") MultipartFile file) throws IOException {
+        return new ResponseEntity<>(productFacade.uploadImage(file),HttpStatus.CREATED);
+    }
+
+    @GetMapping(
+            value = "/image/{imageId}"
+    )
+    ResponseEntity<byte[]> getImage(@PathVariable Long imageId) {
+        return new ResponseEntity<>(productFacade.getImage(imageId),HttpStatus.OK);
     }
 }

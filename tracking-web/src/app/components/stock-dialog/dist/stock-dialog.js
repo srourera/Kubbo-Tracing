@@ -20,6 +20,7 @@ var StockDialog = /** @class */ (function () {
         this.stock = stock;
         this.stockStatus = Properties_1.stockStatus;
         this.warehouses = [];
+        this.save = new core_1.EventEmitter();
     }
     StockDialog.prototype.ngOnInit = function () {
         var _this = this;
@@ -28,8 +29,19 @@ var StockDialog = /** @class */ (function () {
         });
     };
     StockDialog.prototype.onNoClick = function () {
+        this.closeDialog();
+    };
+    StockDialog.prototype.onSaveClick = function () {
+        this.save.emit(this.stock);
+    };
+    StockDialog.prototype.closeDialog = function () {
         this.dialogRef.close();
     };
+    StockDialog.prototype.setErrors = function () {
+    };
+    __decorate([
+        core_1.Output()
+    ], StockDialog.prototype, "save");
     StockDialog = __decorate([
         core_1.Component({
             selector: 'stock-dialog',

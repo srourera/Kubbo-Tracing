@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ProductDialog } from '../../components/product-dialog/product-dialog';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'home',
@@ -13,6 +12,8 @@ import { Observable } from 'rxjs';
 })
 export class HomeRoute implements OnInit {
 
+  loading:boolean = false;
+  
   products: Product[];
   stocks: string[];
 
@@ -64,23 +65,60 @@ export class HomeRoute implements OnInit {
   }
 
   createProduct() {
-    this.productDialog().subscribe((product: Product) => {
-      if(!product) return;
-      this.productsService.create(product).subscribe((product: Product) => {
-        this.router.navigate(['products',product.id]);
-      });
+    const dialogRef = this.productDialog();
 
+    dialogRef.componentInstance.save.subscribe((product: Product) => {
+      if(!product) dialogRef.componentInstance.closeDialog();
+      this.loading = true;
+
+      if(!!product.imageFile){      
+        this.productsService.uploadImage(product.imageFile).subscribe((id: number) => {
+          product.image = id;
+          this.productsService.create(product).subscribe((product: Product) => {
+            this.router.navigate(['products',product.id]);
+            dialogRef.componentInstance.closeDialog();
+            this.loading = false;
+          });
+        });      
+      }
+      else {
+        product.image = null;
+        this.productsService.create(product).subscribe((product: Product) => {
+          this.router.navigate(['products',product.id]);
+          dialogRef.componentInstance.closeDialog();
+          this.loading = false;
+        });
+      }
     });
   }  
 
   editProduct(product: Product) {
     const p = Object.assign({},product);
-    this.productDialog(p).subscribe((product: Product) => {
-      if(!product) return;
-      this.productsService.edit(product).subscribe((product: Product) => {
-        this.currentProduct = product;
-        this.router.navigate(['products',product.id]);
-      });
+    const dialogRef = this.productDialog(p);
+
+    dialogRef.componentInstance.save.subscribe((product: Product) => {
+      if(!product) dialogRef.componentInstance.closeDialog();
+      this.loading = true;
+      
+      if(!!product.imageFile){      
+        this.productsService.uploadImage(product.imageFile).subscribe((id: number) => {
+          product.image = id;
+          this.productsService.edit(product).subscribe((product: Product) => {
+            this.currentProduct = product;
+            this.router.navigate(['products',product.id]);
+            dialogRef.componentInstance.closeDialog();
+            this.loading = false;
+          });
+        });
+      }
+      else {        
+        this.productsService.edit(product).subscribe((product: Product) => {
+          this.currentProduct = product;
+          this.router.navigate(['products',product.id]);
+          dialogRef.componentInstance.closeDialog();
+          this.loading = false;
+        });
+      }
 
     });
   }
@@ -92,7 +130,9 @@ export class HomeRoute implements OnInit {
 
   deleteProduct(product: Product) {
     if(confirm(`Are you sure to delete ${product.name}?`)) {
+      this.loading = true;
       this.productsService.delete(product).subscribe(()=>{
+        this.loading = false;
         if(this.showCurrentProduct) this.router.navigate(['']);
         else this.loadProducts();
       });
@@ -103,11 +143,10 @@ export class HomeRoute implements OnInit {
     this.router.navigate(['products',product.id]);
   }
 
-  private productDialog(product: Product = {} as Product): Observable<Product> {
-    const dialogRef = this.dialog.open(ProductDialog, {
+  private productDialog(product: Product = {} as Product): MatDialogRef<ProductDialog, any> {
+    return this.dialog.open(ProductDialog, {
       width: '80vw',
       data: product
     });
-    return dialogRef.afterClosed();
   }
 }

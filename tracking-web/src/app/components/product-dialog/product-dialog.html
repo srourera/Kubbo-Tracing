@@ -2,7 +2,12 @@
 
 <mat-dialog-content>  
   
-    <mat-form-field>
+  <mat-label class="image-label">Product image</mat-label>
+  <input id="image-input" type="file" (change)="onFileChanged($event)">
+  <img (click)="imageClick()" [src]="preview" />
+  <mat-icon *ngIf="!!product.image || !!product.imageFile" class="delete" (click)="removeImage()">delete_outline</mat-icon>
+
+  <mat-form-field>
     <mat-label>Product name</mat-label>
     <input matInput [(ngModel)]="product.name">
   </mat-form-field>
@@ -19,15 +24,15 @@
   
   <mat-form-field>
     <mat-label>Product price</mat-label>
-    <input matInput [(ngModel)]="product.price">
+    <input matInput type="number" [(ngModel)]="product.price">
   </mat-form-field>
 
   <mat-label class="enabled-label">Enabled</mat-label>
-  <mat-slide-toggle [checked]="product.enabled" (change)="toggleEnabled($event)"></mat-slide-toggle>
+  <mat-slide-toggle [checked]="product.enabled" (change)="toggleEnabled($event)"></mat-slide-toggle>  
 
 </mat-dialog-content>
 
 <mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="product" cdkFocusInitial>{{!!product.id ? 'Edit' : 'Create'}}</button>
+  <button mat-button (click)="onSaveClick()" cdkFocusInitial>{{!!product.id ? 'Edit' : 'Create'}}</button>
 </mat-dialog-actions>

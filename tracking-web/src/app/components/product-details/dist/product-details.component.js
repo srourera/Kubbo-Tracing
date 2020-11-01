@@ -13,6 +13,7 @@ var ProductDetailsComponent = /** @class */ (function () {
     function ProductDetailsComponent(stocksService, dialog) {
         this.stocksService = stocksService;
         this.dialog = dialog;
+        this.loading = false;
         this.hidden = false;
         this.stocks = [];
         this.edit = new core_1.EventEmitter();
@@ -49,11 +50,15 @@ var ProductDetailsComponent = /** @class */ (function () {
             var stock = {
                 productId: this.product.id
             };
-            this.stockDialog(stock).subscribe(function (stock) {
+            var dialogRef_1 = this.stockDialog(stock);
+            dialogRef_1.componentInstance.save.subscribe(function (stock) {
                 if (!stock)
-                    return;
+                    dialogRef_1.componentInstance.closeDialog();
+                _this.loading = true;
                 _this.stocksService.create(stock).subscribe(function (stock) {
                     _this.loadStock();
+                    dialogRef_1.componentInstance.closeDialog();
+                    _this.loading = false;
                 });
             });
         }
@@ -62,28 +67,33 @@ var ProductDetailsComponent = /** @class */ (function () {
         var _this = this;
         var s = Object.assign({}, stock);
         s.warehouseId = !!s.warehouse ? s.warehouse.id : null;
-        this.stockDialog(s).subscribe(function (stock) {
+        var dialogRef = this.stockDialog(s);
+        dialogRef.componentInstance.save.subscribe(function (stock) {
             if (!stock)
-                return;
+                dialogRef.componentInstance.closeDialog();
+            _this.loading = true;
             _this.stocksService.edit(stock).subscribe(function (stock) {
                 _this.loadStock();
+                dialogRef.componentInstance.closeDialog();
+                _this.loading = false;
             });
         });
     };
     ProductDetailsComponent.prototype.deleteStock = function (stock) {
         var _this = this;
         if (confirm("Are you sure to delete stock of " + stock.warehouse.name + "?")) {
+            this.loading = true;
             this.stocksService["delete"](stock).subscribe(function () {
                 _this.loadStock();
+                _this.loading = false;
             });
         }
     };
     ProductDetailsComponent.prototype.stockDialog = function (stock) {
-        var dialogRef = this.dialog.open(stock_dialog_1.StockDialog, {
+        return this.dialog.open(stock_dialog_1.StockDialog, {
             width: '80vw',
             data: stock
         });
-        return dialogRef.afterClosed();
     };
     __decorate([
         core_1.Input()

@@ -10,7 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class ProductsTableComponent implements OnChanges {
   
-  productColumns = productColumns;
+  productColumns = productColumns;  
 
   @Input() products: Product[] = [];
   @Input() hidden: boolean = false;

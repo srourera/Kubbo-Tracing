@@ -4,6 +4,7 @@ import com.technicaltest.trackingserver.dto.ProductData;
 import com.technicaltest.trackingserver.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -39,5 +40,13 @@ public class ProductFacade {
 
     public void delete(Long productId) {
         productService.delete(productId);
+    }
+
+    public Long uploadImage(MultipartFile file) {
+        return productService.uploadImage(file);
+    }
+
+    public byte[] getImage(Long imageId) {
+        return productService.getImage(imageId);
     }
 }

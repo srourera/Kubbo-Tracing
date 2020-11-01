@@ -1,6 +1,7 @@
+<loading *ngIf="!!loading"></loading>
 <div id="product-details" [ngClass]="{'hidden': hidden}" *ngIf="!!product">
     <div class="product">
-        <div class="product-img"><img [src]="product.image"></div>
+        <div class="product-img"><img *ngIf="!!product.image" src="{{product.image | image}}"></div>
         <div class="product-data">
             <p class="name"><strong>{{product.name}}</strong></p>
             <div class="actions"><mat-icon class="edit" (click)="editProduct(product)">edit</mat-icon><mat-icon class="delete" (click)="deleteProduct(product)">delete_outline</mat-icon></div>

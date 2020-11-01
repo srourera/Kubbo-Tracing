@@ -15,6 +15,7 @@ var HomeRoute = /** @class */ (function () {
         this.dialog = dialog;
         this.router = router;
         this.route = route;
+        this.loading = false;
         this.showCurrentProduct = false;
         this.currentProduct = {};
     }
@@ -54,24 +55,58 @@ var HomeRoute = /** @class */ (function () {
     };
     HomeRoute.prototype.createProduct = function () {
         var _this = this;
-        this.productDialog().subscribe(function (product) {
+        var dialogRef = this.productDialog();
+        dialogRef.componentInstance.save.subscribe(function (product) {
             if (!product)
-                return;
-            _this.productsService.create(product).subscribe(function (product) {
-                _this.router.navigate(['products', product.id]);
-            });
+                dialogRef.componentInstance.closeDialog();
+            _this.loading = true;
+            if (!!product.imageFile) {
+                _this.productsService.uploadImage(product.imageFile).subscribe(function (id) {
+                    product.image = id;
+                    _this.productsService.create(product).subscribe(function (product) {
+                        _this.router.navigate(['products', product.id]);
+                        dialogRef.componentInstance.closeDialog();
+                        _this.loading = false;
+                    });
+                });
+            }
+            else {
+                product.image = null;
+                _this.productsService.create(product).subscribe(function (product) {
+                    _this.router.navigate(['products', product.id]);
+                    dialogRef.componentInstance.closeDialog();
+                    _this.loading = false;
+                });
+            }
         });
     };
     HomeRoute.prototype.editProduct = function (product) {
         var _this = this;
         var p = Object.assign({}, product);
-        this.productDialog(p).subscribe(function (product) {
+        var dialogRef = this.productDialog(p);
+        dialogRef.componentInstance.save.subscribe(function (product) {
             if (!product)
-                return;
-            _this.productsService.edit(product).subscribe(function (product) {
-                _this.currentProduct = product;
-                _this.router.navigate(['products', product.id]);
-            });
+                dialogRef.componentInstance.closeDialog();
+            _this.loading = true;
+            if (!!product.imageFile) {
+                _this.productsService.uploadImage(product.imageFile).subscribe(function (id) {
+                    product.image = id;
+                    _this.productsService.edit(product).subscribe(function (product) {
+                        _this.currentProduct = product;
+                        _this.router.navigate(['products', product.id]);
+                        dialogRef.componentInstance.closeDialog();
+                        _this.loading = false;
+                    });
+                });
+            }
+            else {
+                _this.productsService.edit(product).subscribe(function (product) {
+                    _this.currentProduct = product;
+                    _this.router.navigate(['products', product.id]);
+                    dialogRef.componentInstance.closeDialog();
+                    _this.loading = false;
+                });
+            }
         });
     };
     HomeRoute.prototype.enableProduct = function (product) {
@@ -83,7 +118,9 @@ var HomeRoute = /** @class */ (function () {
     HomeRoute.prototype.deleteProduct = function (product) {
         var _this = this;
         if (confirm("Are you sure to delete " + product.name + "?")) {
+            this.loading = true;
             this.productsService["delete"](product).subscribe(function () {
+                _this.loading = false;
                 if (_this.showCurrentProduct)
                     _this.router.navigate(['']);
                 else
@@ -96,11 +133,10 @@ var HomeRoute = /** @class */ (function () {
     };
     HomeRoute.prototype.productDialog = function (product) {
         if (product === void 0) { product = {}; }
-        var dialogRef = this.dialog.open(product_dialog_1.ProductDialog, {
+        return this.dialog.open(product_dialog_1.ProductDialog, {
             width: '80vw',
             data: product
         });
-        return dialogRef.afterClosed();
     };
     HomeRoute = __decorate([
         core_1.Component({

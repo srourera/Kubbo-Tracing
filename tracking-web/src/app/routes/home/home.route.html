@@ -1,3 +1,4 @@
+<loading *ngIf="!!loading"></loading>
 <div class="route">    
     <product-details [ngClass]="{'hidden': !showCurrentProduct}" [hidden]="!showCurrentProduct" [product]="currentProduct" (edit)="editProduct($event)" (enable)="enableProduct($event)" (delete)="deleteProduct($event)"></product-details>
     <products-table *ngIf="!!products" [hidden]="showCurrentProduct" [products]="products" (clicked)="productClicked($event)" (create)="createProduct()" (edit)="editProduct($event)" (enable)="enableProduct($event)" (delete)="deleteProduct($event)"></products-table>

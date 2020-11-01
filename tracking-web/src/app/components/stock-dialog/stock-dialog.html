@@ -29,5 +29,5 @@
 
 <mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="stock" cdkFocusInitial>{{!!stock.id ? 'Edit' : 'Create'}}</button>
+  <button mat-button (click)="onSaveClick()" cdkFocusInitial>{{!!stock.id ? 'Edit' : 'Create'}}</button>
 </mat-dialog-actions>

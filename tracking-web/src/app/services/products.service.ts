@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { productsUrl } from '../configuration/Properties';
+import { productsUrl, imagesUrl } from '../configuration/Properties';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
 
@@ -36,5 +36,12 @@ export class ProductsService {
 
   delete(product: Product) {
     return this.http.delete(`${productsUrl}/${product.id}`);
+  }
+
+  uploadImage(image: File){
+    const uploadImageData = new FormData();
+    uploadImageData.append('imageFile', image);
+  
+    return this.http.post(imagesUrl,uploadImageData);
   }
 }

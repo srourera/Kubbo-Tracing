@@ -30,9 +30,32 @@ mat-dialog-actions button:last-child {
     border-color: var(--dark-color);
 }
 
+mat-label.image-label,
 mat-label.enabled-label {
     font-size: 12px;
     color: rgba(0,0,0,.54);
     display: block;
     margin-bottom: 5px;
+}
+#image-input {
+    display: none;
+}
+img{
+    cursor: pointer;
+    width: 200px;
+    object-fit: contain;
+    max-width: 100%;
+    border-radius: 5px;
+    height: 200px;
+    margin-bottom: 15px;
+}
+img:hover {
+    box-shadow: var(--box-shadow-medium);
+}
+mat-icon.delete{
+    color: #666;
+    cursor: pointer;
+}
+mat-icon.delete:hover{
+    color: var(--delete-color);
 }

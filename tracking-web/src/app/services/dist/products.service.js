@@ -34,6 +34,11 @@ var ProductsService = /** @class */ (function () {
     ProductsService.prototype["delete"] = function (product) {
         return this.http["delete"](Properties_1.productsUrl + "/" + product.id);
     };
+    ProductsService.prototype.uploadImage = function (image) {
+        var uploadImageData = new FormData();
+        uploadImageData.append('imageFile', image);
+        return this.http.post(Properties_1.imagesUrl, uploadImageData);
+    };
     ProductsService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

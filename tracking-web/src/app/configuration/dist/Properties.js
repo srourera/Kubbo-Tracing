@@ -1,12 +1,13 @@
 "use strict";
 exports.__esModule = true;
-exports.stockStatus = exports.stockColumns = exports.productColumns = exports.warehousesUrl = exports.stocksUrl = exports.productsUrl = exports.baseUrl = exports.appTitle = void 0;
+exports.stockStatus = exports.stockColumns = exports.productColumns = exports.imagesUrl = exports.warehousesUrl = exports.stocksUrl = exports.productsUrl = exports.baseUrl = exports.appTitle = void 0;
 exports.appTitle = 'kubbo smart logistics';
 // export const baseUrl = '/gui';
 exports.baseUrl = 'http://localhost:8000/gui';
 exports.productsUrl = exports.baseUrl + '/products';
 exports.stocksUrl = exports.baseUrl + '/stocks';
 exports.warehousesUrl = exports.baseUrl + '/warehouses';
+exports.imagesUrl = exports.baseUrl + '/products/image';
 exports.productColumns = ['image', 'name', 'sku', 'barcode', 'price', 'enabled', 'actions'];
 exports.stockColumns = ['name', 'city', 'quantity', 'status', 'actions'];
 exports.stockStatus = ['AVAILABLE', 'DAMAGED', 'ASSIGNED'];

@@ -5,7 +5,7 @@
 
     <ng-container matColumnDef="image">
       <mat-header-cell *matHeaderCellDef> Image </mat-header-cell>
-      <mat-cell *matCellDef="let product"><img [src]="product.image"/></mat-cell>
+      <mat-cell *matCellDef="let product"><img *ngIf="!!product.image" src="{{product.image | image}}"/></mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="name">

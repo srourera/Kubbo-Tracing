@@ -6,6 +6,7 @@ import com.technicaltest.trackingserver.dto.ProductData;
 import com.technicaltest.trackingserver.dto.WarehouseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -45,6 +46,14 @@ public class ProductService {
     public void delete(Long productId) {
         productsClient.deleteProduct(productId);
         stockService.deleteByProductId(productId);
+    }
+
+    public Long uploadImage(MultipartFile file) {
+        return productsClient.uploadImage(file).getBody();
+    }
+
+    public byte[] getImage(Long imageId) {
+        return productsClient.getImage(imageId).getBody();
     }
 
 }

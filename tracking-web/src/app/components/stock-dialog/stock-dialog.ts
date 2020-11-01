@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Stock } from '../../models/stock.model';
 import { stockStatus } from '../../configuration/Properties';
@@ -15,6 +15,8 @@ export class StockDialog implements OnInit{
   public stockStatus = stockStatus;
   public warehouses: Warehouse[] = [];
 
+  @Output() save: EventEmitter<Stock> = new EventEmitter();
+
   constructor(
     private warehousesService: WarehousesService,
     public dialogRef: MatDialogRef<StockDialog>,
@@ -27,7 +29,18 @@ export class StockDialog implements OnInit{
   }
 
   onNoClick() {
+    this.closeDialog();
+  }
+
+  onSaveClick(){
+    this.save.emit(this.stock);
+  }
+
+  closeDialog(){
     this.dialogRef.close();
+  }
+  setErrors(){
+    
   }
 
 }

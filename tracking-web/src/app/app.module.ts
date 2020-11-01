@@ -10,6 +10,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,6 +23,8 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { StocksTableComponent } from './components/stocks-table/stocks-table.component';
 import { ProductDialog } from './components/product-dialog/product-dialog';
 import { StockDialog } from './components/stock-dialog/stock-dialog';
+import { ImagePipe } from './pipes/image.pipe';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,9 @@ import { StockDialog } from './components/stock-dialog/stock-dialog';
     ProductDetailsComponent,
     StocksTableComponent,
     ProductDialog,
-    StockDialog
+    StockDialog,
+    ImagePipe,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -48,9 +53,10 @@ import { StockDialog } from './components/stock-dialog/stock-dialog';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatProgressSpinnerModule,
     FormsModule
   ],
-  providers: [],
+  providers: [ImagePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
