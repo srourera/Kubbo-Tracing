@@ -6,6 +6,7 @@ import com.technicaltest.trackingserver.dto.StockWarehouseData;
 import com.technicaltest.trackingserver.dto.WarehouseData;
 import com.technicaltest.trackingserver.utils.StockUtils;
 import com.technicaltest.trackingserver.utils.Utils;
+import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,11 +44,21 @@ public class StockService {
     }
 
     public StockData edit(Long stockId, StockData stockData) {
-        return stocksClient.editStock(stockId,stockData).getBody();
+        StockData stockEdited = null;
+        try {
+            stockEdited = stocksClient.editStock(stockId,stockData).getBody();
+        } catch (FeignException exception) {
+            Utils.transformException(exception);
+        }
+        return stockEdited;
     }
 
     public void delete(Long stockId) {
-        stocksClient.deleteStock(stockId);
+        try {
+            stocksClient.deleteStock(stockId);
+        } catch (FeignException exception) {
+            Utils.transformException(exception);
+        }
     }
 
     public void deleteByProductId(Long productId) {
