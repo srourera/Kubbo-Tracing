@@ -92,7 +92,6 @@ export class ProductDetailsComponent implements OnChanges {
     dialogRef.componentInstance.save.subscribe((stock: Stock) => {
       if(!stock) dialogRef.componentInstance.closeDialog();
       this.loading = true;
-
       this.stocksService.edit(stock).subscribe(() => {
         this.loadStock();
         dialogRef.componentInstance.closeDialog();

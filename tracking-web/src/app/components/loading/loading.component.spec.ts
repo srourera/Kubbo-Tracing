@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoadingComponent } from './loading.component';
 
 describe('LoadingComponent', () => {
-  let component: LoadingComponent;
+  let loading: LoadingComponent;
   let fixture: ComponentFixture<LoadingComponent>;
 
   beforeEach(async () => {
@@ -15,11 +15,13 @@ describe('LoadingComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LoadingComponent);
-    component = fixture.componentInstance;
+    loading = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should be created', () => {
+    // Given
+    // Then
+    expect(loading).toBeTruthy();
   });
 });

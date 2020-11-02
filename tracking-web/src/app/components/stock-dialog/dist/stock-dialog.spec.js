@@ -37,23 +37,25 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var testing_1 = require("@angular/core/testing");
-var product_dialog_1 = require("./product-dialog");
-var image_pipe_1 = require("../../pipes/image.pipe");
-var app_data_spec_1 = require("../../app.data.spec");
+var stock_dialog_1 = require("./stock-dialog");
 var dialog_1 = require("@angular/material/dialog");
-describe('ProductDialogComponent', function () {
+var app_data_spec_1 = require("../../app.data.spec");
+var warehouses_service_1 = require("../../services/warehouses.service");
+var fake_warehouses_service_spec_1 = require("../../services/fake-warehouses.service.spec");
+var snack_bar_1 = require("@angular/material/snack-bar");
+describe('StockDialogComponent', function () {
     var dialog;
-    var imagePipe;
     var fixture;
     beforeEach(function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, testing_1.TestBed.configureTestingModule({
-                        declarations: [product_dialog_1.ProductDialog],
-                        imports: [dialog_1.MatDialogModule],
+                        declarations: [stock_dialog_1.StockDialog],
+                        imports: [dialog_1.MatDialogModule, snack_bar_1.MatSnackBarModule],
                         providers: [
-                            image_pipe_1.ImagePipe,
+                            { provide: warehouses_service_1.WarehousesService, useClass: fake_warehouses_service_spec_1.FakeWarehousesService },
                             { provide: dialog_1.MAT_DIALOG_DATA, useValue: {} },
+                            { provide: snack_bar_1.MatSnackBar, useValue: {} },
                             { provide: dialog_1.MatDialogRef, useValue: { close: function () { } } }
                         ]
                     })
@@ -65,10 +67,9 @@ describe('ProductDialogComponent', function () {
         });
     }); });
     beforeEach(function () {
-        fixture = testing_1.TestBed.createComponent(product_dialog_1.ProductDialog);
-        imagePipe = testing_1.TestBed.get(image_pipe_1.ImagePipe);
+        fixture = testing_1.TestBed.createComponent(stock_dialog_1.StockDialog);
         dialog = fixture.componentInstance;
-        dialog.product = app_data_spec_1.clone(app_data_spec_1.emptyProduct);
+        dialog.stock = app_data_spec_1.clone(app_data_spec_1.emptyStock);
         fixture.detectChanges();
     });
     it('should be created', function () {
@@ -77,35 +78,14 @@ describe('ProductDialogComponent', function () {
         expect(dialog).toBeTruthy();
     });
     describe('ngOnInit', function () {
-        it('should init preview image', function () {
-            // Given
-            spyOn(imagePipe, 'transform');
-            var product = app_data_spec_1.clone(app_data_spec_1.productWithImage);
-            dialog.product = product;
+        it('should retrieve warehouses', testing_1.fakeAsync(function () {
+            // Given      
             // When
             dialog.ngOnInit();
+            testing_1.tick();
             // Then
-            expect(imagePipe.transform).toHaveBeenCalledWith(app_data_spec_1.productWithImage.image);
-        });
-    });
-    describe('toggleEnabled', function () {
-        it('should set the enabled slider with the event.checked when true', function () {
-            // Given          
-            var event = app_data_spec_1.clone(app_data_spec_1.sliderToggleEventTrue);
-            // When
-            dialog.toggleEnabled(event);
-            // Then
-            expect(dialog.product.enabled).toBeTruthy();
-        });
-        it('should set the enabled slider with the event.checked when false', function () {
-            // Given          
-            dialog.product.enabled = true;
-            var event = app_data_spec_1.clone(app_data_spec_1.sliderToggleEventFalse);
-            // When
-            dialog.toggleEnabled(event);
-            // Then
-            expect(dialog.product.enabled).toBeFalsy();
-        });
+            expect(dialog.warehouses.length).toBe(app_data_spec_1.warehouseList.length);
+        }));
     });
     describe('onNoClick', function () {
         it('should close the dialog', function () {
@@ -120,12 +100,12 @@ describe('ProductDialogComponent', function () {
     describe('onSaveClick', function () {
         it('should emit save event', function () {
             // Given     
-            dialog.product = app_data_spec_1.clone(app_data_spec_1.fullProduct);
+            dialog.stock = app_data_spec_1.clone(app_data_spec_1.fullStock);
             spyOn(dialog.save, 'emit');
             // When
             dialog.onSaveClick();
             // Then
-            expect(dialog.save.emit).toHaveBeenCalledWith(app_data_spec_1.fullProduct);
+            expect(dialog.save.emit).toHaveBeenCalledWith(app_data_spec_1.fullStock);
         });
     });
     describe('closeDialog', function () {
@@ -136,29 +116,6 @@ describe('ProductDialogComponent', function () {
             dialog.closeDialog();
             // Then
             expect(dialog.dialogRef.close).toHaveBeenCalled();
-        });
-    });
-    describe('removeImage', function () {
-        it('should remove image from product', function () {
-            // Given
-            dialog.product = app_data_spec_1.clone(app_data_spec_1.productWithImage);
-            // When
-            dialog.removeImage();
-            // Then
-            expect(dialog.product.image).toBeNull();
-            expect(dialog.product.imageFile).toBeNull();
-        });
-    });
-    describe('onFileChanged', function () {
-        it('should assign imageFile', function () {
-            // Given      
-            var event = app_data_spec_1.clone(app_data_spec_1.inputFileEvent);
-            spyOn(dialog, 'setPreviewImage');
-            // When
-            dialog.onFileChanged(event);
-            // Then
-            expect(dialog.setPreviewImage).toHaveBeenCalled();
-            expect(dialog.product.imageFile).not.toBeNull();
         });
     });
 });
